@@ -19,13 +19,13 @@ class UserModel {
     // CONSTRUCTOR      
     public function __construct($arrFields){
         
-        if (!file_exists(ROOT_PATH . "/db/users.json")){
+        if ( !file_exists(ROOT_PATH . "/db/users.json") ) {
             $this->_jsonFile = file_put_contents(ROOT_PATH . "/db/users.json","[]");
         }
-        // file_get: llegeix Fitxer txt (retorna text, en aquest cas format json)
+        // file_get: llegeix Fitxer txt  (retorna text, en aquest cas format json)
         $jsnUsers = file_get_contents($this->_jsonFile);
         // json_decode:  converteix un JSON string, en un ARRAY
-        $arrUsers = json_decode($jsnUsers, true);             
+        $arrUsers = json_decode($jsnUsers,true);             
         // ens guardem en State la llista d'users
         $this->_arrUsers = $arrUsers;
 
@@ -51,7 +51,7 @@ class UserModel {
         // DEBUG:
         // echo "<br>function exists -> $ nom = " . $nom ."<br>";
         $match = false;
-        foreach ($this->_arrUsers as $user) {
+        foreach ($this->_arrUsers as $user){
             // echo "var_dump de $ user : " . var_dump($user) . "<br>";
             if ($user['name'] == $nom) {
                 $match = true;
@@ -85,7 +85,7 @@ class UserModel {
     }
 
     // implementamos aquí el DELETE a JSON (un recycle nos permite recuperarlo, todavia no Delete total)
-    public function recycle($data,$status){
+    public function recycle($data,$status) {
         // cambia el ESTADO de los Atributos, pero es VOLATIL
         $this->setDeleted($status);        
         // cambia en FICHERO su contenido, PERSISTENCIA de datos

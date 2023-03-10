@@ -9,9 +9,10 @@
  * '/' => 'index#index',
  * '/calendar' => 'calendar#index'
  */
+
 $routes = array(
+	// check test route first
 	'/test' => 'test#index',
-	
 	'/listtask' => 'task#index',
 	'/addtask'  => 'task#add',
 	'/edittask' => 'task#edit',

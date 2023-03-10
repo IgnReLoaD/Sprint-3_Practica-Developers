@@ -18,31 +18,31 @@ class UserController extends ApplicationController
     // LANDING - Funció per Entrar Login usuari
 	public function indexAction(){
 
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if ( $_SERVER['REQUEST_METHOD'] == 'POST') {
 
             if (isset($_POST['inpName'])){
                 // COOKIES - només si marcat 'recordar per X temps', en segons, p.ex.: 86400 = 1 day
                 if (!empty($_POST['remember'])) {
-                    setcookie('userDevelopersTeam',$_POST['inpName'], time()+3600 + (int) $_POST['rememberTime'], "/"); 
+                    setcookie('userDevelopersTeam', $_POST['inpName'], time()+3600 + (int) $_POST['rememberTime'], "/"); 
                 }
                 // DEBUG:
                 // echo "entrem a UserController::indexAction -> IF-isset-POST[inpName]<br><br>";
 
                 // carreguem els valors dels txtBox a dins un array
                 $fields = array(
-                    'nom' => $_POST["inpName"],
+                    'nom' => $_POST["inpName"], 
                     'cog' => '',     // $_POST["inpCog"],
                     'rol' => '',     // $_POST["inpRol"]
-                    'pwd' => $_POST["inpPwd"]
+                    'pwd' => $_POST["inpPwd"] 
                 );       
                 // DEBUG:
                 // var_dump($fields);                        
 
                 // instanciem objecte i el seu constructor omple els camps
-                $objUser = new UserModel($fields);                       
+                $objUser = new UserModel($fields);                   
 
                 // comprobem que existeixi:
-                if ($objUser->exists($fields['nom'])) {
+                if ($objUser->exists($fields['nom'])){
 
                     // echo "<br>Usuario encontrado!!  --> puedes ir a listtask...<br>";
                     // if (!isset($_SESSION)){
@@ -56,7 +56,6 @@ class UserController extends ApplicationController
                     // echo "Usuari no trobat. Vols registrar-te?<br>"; --> incrustem en la vista                    
                     // si clickem, continuarà en aquest fitxer UserController -> mètode addAction
                 }
-
                 // tanquem sessió
                 // session_destroy();
             }                
