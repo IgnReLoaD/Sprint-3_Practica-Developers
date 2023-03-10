@@ -19,7 +19,7 @@ class UserModel {
     // CONSTRUCTOR      
     public function __construct($arrFields){
         
-        if (!file_exists(ROOT_PATH . "/db/users.json")){
+        if ( !file_exists(ROOT_PATH . "/db/users.json") ) {
             $this->_jsonFile = file_put_contents(ROOT_PATH . "/db/users.json","[]");
         }
         // file_get: llegeix Fitxer txt  (retorna text, en aquest cas format json)

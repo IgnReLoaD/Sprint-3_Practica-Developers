@@ -18,7 +18,7 @@ class UserController extends ApplicationController
     // LANDING - Funció per Entrar Login usuari
 	public function indexAction(){
 
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if ( $_SERVER['REQUEST_METHOD'] == 'POST') {
 
             if (isset($_POST['inpName'])){
                 // COOKIES - només si marcat 'recordar per X temps', en segons, p.ex.: 86400 = 1 day
@@ -42,7 +42,7 @@ class UserController extends ApplicationController
                 $objUser = new UserModel($fields);                   
 
                 // comprobem que existeixi:
-                if ($objUser->exists($fields['nom'])) {
+                if ($objUser->exists($fields['nom'])){
 
                     // echo "<br>Usuario encontrado!!  --> puedes ir a listtask...<br>";
                     // if (!isset($_SESSION)){
@@ -56,7 +56,6 @@ class UserController extends ApplicationController
                     // echo "Usuari no trobat. Vols registrar-te?<br>"; --> incrustem en la vista                    
                     // si clickem, continuarà en aquest fitxer UserController -> mètode addAction
                 }
-
                 // tanquem sessió
                 // session_destroy();
             }                
