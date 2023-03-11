@@ -78,7 +78,11 @@ class UserModel {
     }
 
     private function getMaxId(){
-        $maxId = $this->_arrUsers ?? count($this->_arrUsers)+1 : 1;  
+        if ($this->_arrUsers > 0) { 
+            $maxId = count($this->_arrUsers)+1;
+        }else{
+            $maxId = 1;
+        }
         // DEBUG:
         // echo "<br> UserModel->getMaxId...maxId: " . $maxId . "<br>";
         return $maxId;       
