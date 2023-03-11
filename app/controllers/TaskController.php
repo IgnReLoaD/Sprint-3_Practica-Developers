@@ -99,9 +99,9 @@ class TaskController extends Controller {
                     }else{
                         echo "Error creating Task";
                     }
+
             }  return $result;
-        }
-          
+        } 
     }
 }
     public function searchAction(){
@@ -109,7 +109,7 @@ class TaskController extends Controller {
        
     }
 
-    public function viewAction(){
+    public function viewAction() {
         echo "hola desde viewAction";
         if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             if (isset ($_POST['id_task'])) {
@@ -142,7 +142,6 @@ class TaskController extends Controller {
         $taskObj = new TaskModel();
         return $taskObj->getTasks();  
     }
-    
 
 }
 
