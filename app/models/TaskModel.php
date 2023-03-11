@@ -12,13 +12,14 @@ class TaskModel{
     );
    
     private $arrTasks;
-    public function __contructor($arrFields){
+    public function __contructor($arrFields) {
         
         if (!file_exists(__DIR__.'../db/tasks.json')) {
             $this->arrTasks = $this->putJson('[]');
         }else {
             $this->arrTasks = json_decode(file_get_contents(ROOT_PATH.'/db/tasks.json',true)); 
         }
+
         $this->arrFields = array(
             '"id_task"' => "0",
             'created_at' => date("Y-m-d"),
@@ -30,14 +31,14 @@ class TaskModel{
     }
     public function putJson($arrFields)
     {
-        json_encode(file_put_contents(ROOT_PATH. '/db/tasks.json', $arrFields));
-        
+        json_encode(file_put_contents(ROOT_PATH. '/db/tasks.json', $arrFields));        
     }
     
     public function getTasks(){
         $tasks = json_decode(file_get_contents(ROOT_PATH.'/db/tasks.json'),true);
-        return $tasks;
+        return $tasks;        
     }
+
     public function getTaskById($taskId){
         $tasks = $this->arrTasks;
         foreach ($tasks as $task) {
@@ -57,6 +58,7 @@ class TaskModel{
            return json_encode($taskid);
         }
     }
+
     // public function setId(){
     //     $record_number = count($this->arrTasks);
     //     for ($i=0; $i <= $record_number ; $i++) { 
@@ -93,7 +95,7 @@ class TaskModel{
             $this->putJson($task);
         }
     }
-    public function deletedTask($taskid){
+    public function deletedTask($taskid) {
         $tasks = $this->arrTask;
         if (is_array($tasks)){
             foreach ($tasks as $task) {
@@ -105,7 +107,7 @@ class TaskModel{
             $this->putJson($task);
         }
     }
-    public function createTask($arrFields){
+    public function createTask($arrFields) {
         $tasks = self::getTasks();
         $arrFields['id_task']=0;
         if ($this->arrFields['id_task']=0) {
@@ -118,8 +120,6 @@ class TaskModel{
         return $this->arrFields;
     }
 }
-
-
 
 
 ?>

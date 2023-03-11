@@ -9,7 +9,7 @@ class TaskController extends Controller {
     }
     public function addAction(){
         echo "hola desde addAction";
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             if (isset($_POST['masterUsr_id']) && isset($_POST['description']) && isset($_POST['created_at']) && isset($_POST['done']) && isset($_POST['currentStatus'])){
                 $arrFields = array(
                     'masterUsr_id' => $_POST["masterUsr_id"],
@@ -50,7 +50,7 @@ class TaskController extends Controller {
         //     //     # code...
         //     // }
         // }
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             if (isset ($_POST['id_task'])) {
                 $taskObj = new TaskModel();
                 $taskid= $_POST['id_task'];
@@ -67,14 +67,14 @@ class TaskController extends Controller {
                         
                     }
                 }
-            ///header('Location: viewtask');
 
+            ///header('Location: viewtask');
             }
         }
     }
     public function editAction(){
         echo "hola desde editAction";
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             if (isset ($_POST['id_task'])){}
                 if (isset($_POST['masterUsr_id']) && isset($_POST['description']) && isset($_POST['created_at']) && isset($_POST['done']) && isset($_POST['currentStatus'])){
                     $arrFields = array(
@@ -99,18 +99,19 @@ class TaskController extends Controller {
                     }else{
                         echo "Error creating Task";
                     }
+
             }  return $result;
-        }
-          
+        } 
     }
 }
     public function searchAction(){
         echo "hola desde searchAction";
        
     }
-    public function viewAction(){
+
+    public function viewAction() {
         echo "hola desde viewAction";
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             if (isset ($_POST['id_task'])) {
                 $taskObj = new TaskModel();
                 $taskid= $_POST['id_task'];
@@ -134,30 +135,14 @@ class TaskController extends Controller {
        
     }
     public function searchtodeleteAction(){
-        echo "hola desde searchtodeleteAction";
-        
-
+        echo "hola desde searchtodeleteAction";        
     }
-    public function viewallAction(){
-        
+
+    public function viewallAction(){        
         $taskObj = new TaskModel();
-        return $taskObj->getTasks();
-  
+        return $taskObj->getTasks();  
     }
-    
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ?>
