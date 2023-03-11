@@ -12,6 +12,21 @@
 
 $routes = array(
 	// check test route first
+	// 1. Landing ha de mostrar Vista - users - login
+	// rutes per USERS
+    '/'         => 'user#index',
+    '/index'    => 'user#index',
+    // '/listuser' => 'user#index',
+
+	// 2. Si no existeix, ha de deixar CREAR user
+    '/adduser'  => 'user#add',
+
+	// 3. Modificar EDIT user
+    '/edituser' => 'user#edit',   // 'UserController.php?id=3' ... rebrà per GET la ID ... function editAction($_GET[id])
+	// 4. Eliminar DEL user
+    '/deluser'  => 'user#del'
+	
+	// rutes per TASKS
 	'/test' => 'test#index',
 	'/listtask' => 'task#index',
 	'/addtask'  => 'task#add',
@@ -21,11 +36,5 @@ $routes = array(
 	'/searchtask' => 'task#search',
 	'/searchtodeletetask' => 'task#searchtodelete',
 	'/viewalltask' => 'task#viewall',
-	// rutes per taula USERS
-    '/'         => 'user#index',
-    '/index'    => 'user#index',
-    // '/listuser' => 'user#index',
-    '/adduser'  => 'user#add',
-    '/edituser' => 'user#edit',   // 'UserController.php?id=3' ... rebrà per GET la ID ... function editAction($_GET[id])
-    '/deluser'  => 'user#del'
+
 );
