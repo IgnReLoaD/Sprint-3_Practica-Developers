@@ -24,7 +24,7 @@ $routes = array(
 	// 3. Modificar EDIT user
     '/edituser' => 'user#edit',   // 'UserController.php?id=3' ... rebrà per GET la ID ... function editAction($_GET[id])
 	// 4. Eliminar DEL user
-    '/deluser'  => 'user#del'
+    '/deluser'  => 'user#del',
 	
 	// rutes per TASKS
 	'/test' => 'test#index',

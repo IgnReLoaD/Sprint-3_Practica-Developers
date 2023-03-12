@@ -16,17 +16,19 @@ require_once ROOT_PATH . ('/app/models/UserModel.php');
 class UserController extends ApplicationController
 {    
     // LANDING - Funció per Entrar Login usuari
+    // '/web/'  or  '/web/index'
 	public function indexAction(){
 
         if ( $_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            if (isset($_POST['inpName'])){
+            if ( isset($_POST['inpName']) && isset($_POST['inpPwd']) ){
                 // COOKIES - només si marcat 'recordar per X temps', en segons, p.ex.: 86400 = 1 day
                 if (!empty($_POST['remember'])) {
                     setcookie('userDevelopersTeam', $_POST['inpName'], time()+3600 + (int) $_POST['rememberTime'], "/"); 
                 }
                 // DEBUG:
                 // echo "entrem a UserController::indexAction -> IF-isset-POST[inpName]<br><br>";
+
 
                 // carreguem els valors dels txtBox a dins un array
                 $fields = array(
@@ -42,15 +44,17 @@ class UserController extends ApplicationController
                 $objUser = new UserModel($fields);                   
 
                 // comprobem que existeixi:
-                if ($objUser->exists($fields['nom'])){
+                if ( $objUser->exists($fields['nom'], $fields['pwd']) ){
 
-                    // echo "<br>Usuario encontrado!!  --> puedes ir a listtask...<br>";
+                    // echo "<br>Usuario SI encontrado!!  --> puedes ir a listtask...<br>";
                     // if (!isset($_SESSION)){
                     //     session_start();
                     // } 
                     $_SESSION['nom'] = $objUser->getFields('strName');
                     $_SESSION['rol'] = $objUser->getFields('strRol');                    
-                    // $_SESSION['tasks'] = $objUser->getTasksByUserId();                    
+                    // $_SESSION['tasks'] = $objUser->getTasksByUserId();  
+                    
+                    // indiquem que vagi a ruta 'listtask' que és: '/web/listtask' (TaskController::index)
                     header("Location: listtask");
                 }else{
                     // echo "Usuari no trobat. Vols registrar-te?<br>"; --> incrustem en la vista                    
@@ -62,22 +66,31 @@ class UserController extends ApplicationController
         }
     }
 
-    // funció per AFEGIR (CREATE)
+    // des de '/viewsfunció per AFEGIR (CREATE)
     public function addAction(){                        
 
         // DEBUG: 
-        // echo "entrant a user addAction<br>";
+        echo "entrant a user addAction<br>";
+        echo "UserController::addAction -> comprobant si inpNom i inpRol estan plens...";                
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if ((isset($_POST['inpName'])) && (isset($_POST['inpRol']))) {   
+
+            echo "UserController::addAction -> comprobant si REQUEST_METHOD es POST...";
+
+            if ((isset($_POST['inpNom'])) && (isset($_POST['inpRol']))) {   
+
+                echo "OJO:  aqui no entra.... va a view de EditUser !!! ";
 
                 // 1. recollim les dades
                 $fields = array(
-                    'nom' => $_POST["inpName"],
+                    'nom' => $_POST["inpNom"],
                     'cog' => $_POST["inpCog"],
                     'rol' => $_POST["inpRol"],
                     'pwd' => $_POST["inpPwd"]                    
                 );
+
+                echo "UserController::addAction -> apunt de instanciar objUser amb seus fields...";                
+                die;
 
                 // 2. Instanciem l'objecte real        
                 $objUser = new UserModel($fields);            
@@ -91,6 +104,7 @@ class UserController extends ApplicationController
                     // header('Location:' .ROOT_PATH.'/app/views/scripts/user/index.phtml');
                 }else{
                     echo "No hem pogut grabar el nou usuari.";
+                    die;
                 }
             }
         }        

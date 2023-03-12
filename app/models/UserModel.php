@@ -34,6 +34,7 @@ class UserModel {
             'id_user' => $this->getMaxId(),
             'createdAt' => date("Y-m-d H:i:s"),
             'name' => $arrFields['nom'],
+            'pwd'  => $arrFields['pwd'],
             'rol'  => $arrFields['rol'],
             'deleted' => '0'
         );  
@@ -47,13 +48,13 @@ class UserModel {
     }
 
     // METODES ESPECIFICS de Classe:
-    public function exists($nom){
+    public function exists($nom,$pwd){
         // DEBUG:
         // echo "<br>function exists -> $ nom = " . $nom ."<br>";
         $match = false;
         foreach ($this->_arrUsers as $user){
             // echo "var_dump de $ user : " . var_dump($user) . "<br>";
-            if ($user['name'] == $nom) {
+            if ( ($user['name'] == $nom) && ($user['pwd']==$pwd) ) {
                 $match = true;
             }
         }
@@ -70,7 +71,7 @@ class UserModel {
             // json_encode:  converteix un ARRAY en un JSON string
             $jsnUsers = json_encode($arrUsers);
             // file_put: graba en Fitxer txt
-            $result = file_put_contents($this->_jsonFile,$jsnUsers);
+            $result = file_put_contents($this->_jsonFile, ($jsnUsers . PHP_EOL) );
             // tot lo d'abans però en una fila:
             // $result = file_put_contents($this->_jsonFile, json_encode($arrUsers));
         }
