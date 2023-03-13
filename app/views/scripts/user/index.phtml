@@ -26,8 +26,8 @@
                 </div>
                 <div>
                     <input type ="text" 
-                            id   ="inpName"
-                            name ="inpName" 
+                            id   ="inpNom"
+                            name ="inpNom" 
                             placeholder="Name"
                             class="w-full p-4 text-sm bg-gray-50 focus:outline-none focus:bg-yellow-100 border-2 border-gray-400 rounded text-gray-600">
                 </div>
@@ -68,7 +68,7 @@
                     </div>
                     <div class="flex justify-center">
                         <?php 
-                            if (isset($_POST['inpName'])){
+                            if (isset($_POST['inpNom'])){
                                 // REGISTRAR (Create user) enllaç link cap a 'views/user/add.phtml' 
                                 // però no va a Routes '/adduser' --> UserController::addAction, fins que faci click botó Registrar de la view 'add'
                                 echo '<span class="mt-4">  <a class="text-lg font-bold justify-end text-red-600 hover:underline" href="adduser"> Usuari no trobat. Vols registrar-te? </a> </span>';
