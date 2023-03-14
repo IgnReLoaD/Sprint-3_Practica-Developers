@@ -9,9 +9,10 @@ class UserModel {
 
     public $_fields = array(
         'id_user' => '0',
-        'strCreatedAt' => '',
+        'createdAt' => '',
         'name' => '',
-        'cog'  => '',
+        'surn'  => '',
+        'pwd'  => '',
         'rol'  => '',
         'deleted' => '0'
     );
@@ -34,6 +35,8 @@ class UserModel {
             'id_user' => $this->getMaxId(),
             'createdAt' => date("Y-m-d H:i:s"),
             'name' => $arrFields['nom'],
+            'surn' => $arrFields['cog'],
+            'pwd'  => $arrFields['pwd'],
             'rol'  => $arrFields['rol'],
             'deleted' => '0'
         );  
@@ -47,13 +50,13 @@ class UserModel {
     }
 
     // METODES ESPECIFICS de Classe:
-    public function exists($nom){
+    public function exists($nom,$pwd){
         // DEBUG:
         // echo "<br>function exists -> $ nom = " . $nom ."<br>";
         $match = false;
         foreach ($this->_arrUsers as $user){
             // echo "var_dump de $ user : " . var_dump($user) . "<br>";
-            if ($user['name'] == $nom) {
+            if ( ($user['name'] == $nom) && ($user['pwd']==$pwd) ) {
                 $match = true;
             }
         }
@@ -68,9 +71,10 @@ class UserModel {
             // afegim al STATE dels Atributs, pero encara és VOLATIL
             array_push($arrUsers, $singleUser); 
             // json_encode:  converteix un ARRAY en un JSON string
-            $jsnUsers = json_encode($arrUsers);
+            $jsnUsers = json_encode($arrUsers,JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT);
             // file_put: graba en Fitxer txt
-            $result = file_put_contents($this->_jsonFile,$jsnUsers);
+            // $result = file_put_contents($this->_jsonFile, ($jsnUsers . '/n') );  // o PHP_EOL  <-- esto salta pero después del ] por tanto no sirve
+            $result = file_put_contents($this->_jsonFile, $jsnUsers);
             // tot lo d'abans però en una fila:
             // $result = file_put_contents($this->_jsonFile, json_encode($arrUsers));
         }
@@ -95,6 +99,13 @@ class UserModel {
         // cambia en FICHERO su contenido, PERSISTENCIA de datos
         json_encode($data);
         file_put_contents("../db/users.json",$data);
+    }
+
+    // necesitamos una función para listar usuarios, en realidad no listar 
+    // pero sí llamarla desde UserController y así pasarlos a VIEW de Tasks
+    public function getUsers(){
+        $users = json_decode(file_get_contents(ROOT_PATH.'/db/users.json'),true);
+        return $users; 
     }
 
 }

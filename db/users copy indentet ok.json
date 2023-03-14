@@ -1,0 +1,58 @@
+[
+    {
+        "id_user": 1,
+        "createdAt": "2023-03-11 23:43:38",
+        "name": "Ignasi",
+        "rol": "tester",
+        "deleted": "0"
+    },
+    {
+        "id_user": 2,
+        "createdAt": "2023-03-13 10:05:48",
+        "name": "Marta",
+        "pwd": "1234",
+        "rol": "manager",
+        "deleted": "0"
+    },
+    {
+        "id_user": 3,
+        "createdAt": "2023-03-13 10:07:44",
+        "name": "Carlos",
+        "pwd": "1234",
+        "rol": "manager",
+        "deleted": "0"
+    },
+    {
+        "id_user": 4,
+        "createdAt": "2023-03-13 10:26:57",
+        "name": "Joel",
+        "pwd": "1234",
+        "rol": "office",
+        "deleted": "0"
+    },
+    {
+        "id_user": 5,
+        "createdAt": "2023-03-13 10:30:33",
+        "name": "JoanCarles",
+        "pwd": "1234",
+        "rol": "manager",
+        "deleted": "0"
+    },
+    {
+        "id_user": 6,
+        "createdAt": "2023-03-13 10:34:59",
+        "name": "Jordi",
+        "pwd": "1234",
+        "rol": "office",
+        "deleted": "0"
+    },
+    {
+        "id_user": 7,
+        "createdAt": "2023-03-13 10:38:40",
+        "name": "Laura",
+        "surn": "Garcia",
+        "pwd": "1234",
+        "rol": "manager",
+        "deleted": "0"
+    }
+]

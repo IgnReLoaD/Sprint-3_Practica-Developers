@@ -18,7 +18,9 @@
     <!-- font awesome 5  -->
     <script src="https://kit.fontawesome.com/afe5486742.js" crossorigin="anonymous"></script>    
 </head>
-<body class="bg-blue-200">
+
+<!-- <body class="bg-blue-200"> -->
+<body class="bg-white divide-y divide-gray-300">
     <nav class="navbar navbar-dark bg-pink-500 flex">
         <div class="container justify-start">
             <div class="d-inline flex-row">
@@ -29,15 +31,3 @@
             </div>
         </div>
     </nav>
-
-    <!-- <p>BD - JSON: users.json</p> -->
-    <?php include("../db/users.json"); ?>
-    <br>
-
-    <!-- <h3>BD - JSON: tasks.json</h3> -->
-    <!-- <?php include("../db/tasks.json"); ?> -->
-    <!-- <br><br> -->
-
-    <!-- <h3>BD - JSON: status.json</h3> -->
-    <!-- <?php include("../db/status.json"); ?> -->
-    <!-- <br><br> -->

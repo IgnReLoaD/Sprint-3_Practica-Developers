@@ -16,21 +16,23 @@ require_once ROOT_PATH . ('/app/models/UserModel.php');
 class UserController extends ApplicationController
 {    
     // LANDING - Funció per Entrar Login usuari
+    // '/web/'  or  '/web/index'
 	public function indexAction(){
 
         if ( $_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            if (isset($_POST['inpName'])){
+            if ( isset($_POST['inpNom']) && isset($_POST['inpPwd']) ){
                 // COOKIES - només si marcat 'recordar per X temps', en segons, p.ex.: 86400 = 1 day
                 if (!empty($_POST['remember'])) {
-                    setcookie('userDevelopersTeam', $_POST['inpName'], time()+3600 + (int) $_POST['rememberTime'], "/"); 
+                    setcookie('userDevelopersTeam', $_POST['inpNom'], time()+3600 + (int) $_POST['rememberTime'], "/"); 
                 }
                 // DEBUG:
-                // echo "entrem a UserController::indexAction -> IF-isset-POST[inpName]<br><br>";
+                // echo "entrem a UserController::indexAction -> IF-isset-POST[inpNom]<br><br>";
+
 
                 // carreguem els valors dels txtBox a dins un array
                 $fields = array(
-                    'nom' => $_POST["inpName"], 
+                    'nom' => $_POST["inpNom"], 
                     'cog' => '',     // $_POST["inpCog"],
                     'rol' => '',     // $_POST["inpRol"]
                     'pwd' => $_POST["inpPwd"] 
@@ -42,16 +44,21 @@ class UserController extends ApplicationController
                 $objUser = new UserModel($fields);                   
 
                 // comprobem que existeixi:
-                if ($objUser->exists($fields['nom'])){
+                if ( $objUser->exists($fields['nom'], $fields['pwd']) ){
 
-                    // echo "<br>Usuario encontrado!!  --> puedes ir a listtask...<br>";
+                    // echo "<br>Usuario SI encontrado!!  --> puedes ir a listtask...<br>";
                     // if (!isset($_SESSION)){
                     //     session_start();
                     // } 
                     $_SESSION['nom'] = $objUser->getFields('strName');
                     $_SESSION['rol'] = $objUser->getFields('strRol');                    
-                    // $_SESSION['tasks'] = $objUser->getTasksByUserId();                    
+                    // $_SESSION['tasks'] = $objUser->getTasksByUserId();  
+                    
+                    // indiquem que vagi a ruta 'listtask' que és: '/web/listtask' (TaskController::index)
                     header("Location: listtask");
+                    // indiquem que vagi a ruta 'viewalltask' que és: '/web/viewalltask' (TaskController::viewAllAction)
+                    header("Location: viewalltask");
+
                 }else{
                     // echo "Usuari no trobat. Vols registrar-te?<br>"; --> incrustem en la vista                    
                     // si clickem, continuarà en aquest fitxer UserController -> mètode addAction
@@ -62,18 +69,48 @@ class UserController extends ApplicationController
         }
     }
 
-    // funció per AFEGIR (CREATE)
+    // GET ALL USERS (para pasar a la view y pintar el user correcto)
+    public function getAllUsersAction(){        
+
+        $fields = array(
+            'nom' => '', 
+            'cog' => '', 
+            'rol' => '', 
+            'pwd' => ''
+        );       
+
+        $objUser = new UserModel($fields);
+        return $objUser->getUsers();  
+    }
+
+    // des de '/viewsfunció per AFEGIR (CREATE)
     public function addAction(){                        
 
         // DEBUG: 
-        // echo "entrant a user addAction<br>";
+        // echo "<br>UserController::addAction -> comprobant si inpNom i inpRol estan plens...<br>";           
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if ((isset($_POST['inpName'])) && (isset($_POST['inpRol']))) {   
+
+            // echo "UserController::addAction -> comprobant si REQUEST_METHOD es POST... <br>";
+ 
+            // if (isset($_POST['inpNom'])) {
+            //     echo "UserController::addAction -> POST[inpNom] ->" . $_POST['inpNom'] . "<br>";
+            // }
+            // if (isset($_POST['inpCog'])) {                
+            //     echo "UserController::addAction -> POST[inpCog] ->" . $_POST['inpCog'] . "<br>";            
+            // }
+            // if (isset($_POST['inpRol'])) {
+            //     echo "UserController::addAction -> POST[inpRol] ->" . $_POST['inpRol'] . "<br>";
+            // }
+            // if (isset($_POST['inpPwd'])) {            
+            //     echo "UserController::addAction -> POST[inpPwd] ->" . $_POST['inpPwd'] . "<br>";
+            // }
+
+            if ((isset($_POST['inpNom'])) && (isset($_POST['inpCog'])) && (isset($_POST['inpRol'])) && (isset($_POST['inpPwd']))) {                   
 
                 // 1. recollim les dades
                 $fields = array(
-                    'nom' => $_POST["inpName"],
+                    'nom' => $_POST["inpNom"],
                     'cog' => $_POST["inpCog"],
                     'rol' => $_POST["inpRol"],
                     'pwd' => $_POST["inpPwd"]                    
@@ -83,14 +120,14 @@ class UserController extends ApplicationController
                 $objUser = new UserModel($fields);            
             
                 // 3. interactuar amb Model (mètode seu) per llegir/grabar
-                $result = $objUser->saveJson($objUser->_arrUsers,$objUser->_fields);                 
+                $result = $objUser->saveJson($objUser->_arrUsers, $objUser->_fields);                 
 
-                // 4. permetem anar a View Tasks, o mens Error
+                // 4. permetem anar a View Tasks, o mens Error (el què fa és anar a TaskController::indexAction)
                 if ($result==true){
                     header("Location: listtask");
-                    // header('Location:' .ROOT_PATH.'/app/views/scripts/user/index.phtml');
                 }else{
                     echo "No hem pogut grabar el nou usuari.";
+                    die;
                 }
             }
         }        

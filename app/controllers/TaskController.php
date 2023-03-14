@@ -4,9 +4,9 @@
 class TaskController extends Controller {
 
     public function indexAction(){
-
-        echo "hola desde indexAction";
+        echo "<br> TaskController::indexAction -> menu opciones tasks";
     }
+
     public function addAction(){
         echo "hola desde addAction";
         if ($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -34,6 +34,7 @@ class TaskController extends Controller {
         }
         
     }
+    
     public function delAction(){ //dudas sobre el action de delete si las paginas esta bien referenciadas
         echo "hola desde delAction";
         // if ($_SERVER['REQUEST_METHOD'] == 'POST') {
