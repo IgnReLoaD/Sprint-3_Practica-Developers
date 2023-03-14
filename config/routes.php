@@ -33,13 +33,16 @@ $routes = array(
 	'/listtask' => 'task#index',
 	// all Tasks (ListarTotes)
 	'/viewalltask' => 'task#viewall',	
-	
+	// add Task (formulari input camps)
 	'/addtask'  => 'task#add',
+	// to store the task in the BD
+	'/storetask' => 'task#store',
+
+	'/viewtask' => 'task#view',
 	'/edittask' => 'task#edit',
 	'/deltask'  => 'task#del',
-	'/viewtask' => 'task#view',
+
 	'/searchtask' => 'task#search',
 	'/searchtodeletetask' => 'task#searchtodelete',
-
 
 );

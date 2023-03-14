@@ -1,7 +1,13 @@
 <?php
 
 class TaskModel{
-    private $arrFields= array (
+
+    // ATRIBUTS
+    private $_jsonFile = ROOT_PATH . ("/db/tasks.json");
+
+    public $arrTasks;
+
+    public $arrFields = array (
         'id_task' => '0',
         'description' => '',
         'currentStatus' => 'initiated',
@@ -11,27 +17,42 @@ class TaskModel{
         'slaveUsr_id'=>''
     );
    
-    private $arrTasks;
-    public function __contructor($arrFields) {
+    // CONSTRUCTOR      
+    public function __construct($arrFields) {
         
         if (!file_exists(__DIR__.'../db/tasks.json')) {
-            $this->arrTasks = $this->putJson('[]');
-        }else {
-            $this->arrTasks = json_decode(file_get_contents(ROOT_PATH.'/db/tasks.json',true)); 
+            $this->arrTasks =  file_put_contents(ROOT_PATH . "/db/tasks.json","[]");
         }
+        // file_get: llegeix Fitxer txt  (retorna text, en aquest cas format json)
+        $jsnTasks = file_get_contents($this->_jsonFile);
+        // json_decode:  converteix un JSON string, en un ARRAY
+        $arrTasks = json_decode($jsnTasks, true); 
+        // ens guardem en State la llista de Tasques
+        $this->arrTasks = $arrTasks;
 
+        // ens guardem en State la Tasca actual que ha construit
         $this->arrFields = array(
-            '"id_task"' => "0",
+            'id_task' => $this->getMaxId(),
             'created_at' => date("Y-m-d"),
             'description' => $arrFields['description'],
             'masterUsr_id' => $arrFields['masterUsr_id'],
-            'slaveUsr_id'  => $arrFields['slaveUsr_id'],
-            'done' => date("Y-m-d")
+            'slaveUsr_id'  => $arrFields['slaveUsr_id']
+            // 'done' => date("Y-m-d")
         );  
     }
-    public function putJson($arrFields)
-    {
-        json_encode(file_put_contents(ROOT_PATH. '/db/tasks.json', $arrFields));        
+
+    public function saveJson($arrTasks, array $singleTask){
+        //json_encode(file_put_contents(ROOT_PATH. '/db/tasks.json', $arrFields));        
+        $result = false;
+        if (!empty($singleTask)){      
+            // afegim al STATE dels Atributs, pero encara és VOLATIL
+            array_push($arrTasks, $singleTask); 
+            // json_encode:  converteix un ARRAY en un JSON string
+            $jsnTasks = json_encode($arrTasks,JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT);
+            // file_put: graba en Fitxer txt
+            $result = file_put_contents($this->_jsonFile, $jsnTasks);
+        }
+        return $result? true : false;
     }
     
     public function getTasks(){
@@ -80,7 +101,7 @@ class TaskModel{
                 $task['done'] = date("Y-m-d");
                 }
             }
-         $this->putJson($task);
+         $this->saveJson($task);
         }
     }
     public function initiatedTask($taskid){
@@ -92,7 +113,7 @@ class TaskModel{
                     
                 }
             }
-            $this->putJson($task);
+            $this->saveJson($task);
         }
     }
     public function deletedTask($taskid) {
@@ -104,22 +125,33 @@ class TaskModel{
                     $task['done'] = date("Y-m-d") ;
                 }
             }
-            $this->putJson($task);
+            $this->saveJson($task);
         }
     }
-    public function createTask($arrFields) {
-        $tasks = self::getTasks();
-        $arrFields['id_task']=0;
-        if ($this->arrFields['id_task']=0) {
-            $this->arrFields['id_task']=1;
-        }else {
-            $this->arrFields['id_task']=+1;
+
+    // public function createTask($arrFields) {
+    //     $tasks = self::getTasks();
+    //     $arrFields['id_task']=0;
+    //     if ($this->arrFields['id_task']=0) {
+    //         $this->arrFields['id_task']=1;
+    //     }else {
+    //         $this->arrFields['id_task']=+1;
+    //     }
+    //     $tasks[]=$this->arrFields;
+    //     self::saveJson($this->arrTasks, $this->$tasks);
+    //     return $this->arrFields;
+    // }
+
+    private function getMaxId(){
+        if ($this->arrTasks > 0) { 
+            $maxId = count($this->arrTasks)+1;
+        }else{
+            $maxId = 1;
         }
-        $tasks[]=$this->arrFields;
-        self::putJson($tasks);
-        return $this->arrFields;
+        // DEBUG:
+        // echo "<br> UserModel->getMaxId...maxId: " . $maxId . "<br>";
+        return $maxId;       
     }
 }
-
 
 ?>

@@ -1,38 +1,58 @@
 [
     {
         "id_user": 1,
-        "createdAt": "2023-03-13 10:40:55",
+        "createdAt": "2023-03-11 23:43:38",
         "name": "Ignasi",
-        "surn": "Ortiz",
-        "pwd": "1234",
-        "rol": "manager",
+        "rol": "tester",
         "deleted": "0"
     },
     {
         "id_user": 2,
-        "createdAt": "2023-03-13 10:41:46",
+        "createdAt": "2023-03-13 10:05:48",
         "name": "Marta",
-        "surn": "Cruz",
         "pwd": "1234",
         "rol": "manager",
         "deleted": "0"
     },
     {
         "id_user": 3,
-        "createdAt": "2023-03-13 11:33:49",
-        "name": "Xavier",
-        "surn": "Saez",
+        "createdAt": "2023-03-13 10:07:44",
+        "name": "Carlos",
+        "pwd": "1234",
+        "rol": "manager",
+        "deleted": "0"
+    },
+    {
+        "id_user": 4,
+        "createdAt": "2023-03-13 10:26:57",
+        "name": "Joel",
         "pwd": "1234",
         "rol": "office",
         "deleted": "0"
     },
     {
-        "id_user": 4,
-        "createdAt": "2023-03-13 13:11:27",
+        "id_user": 5,
+        "createdAt": "2023-03-13 10:30:33",
         "name": "JoanCarles",
-        "surn": "Godinez",
+        "pwd": "1234",
+        "rol": "manager",
+        "deleted": "0"
+    },
+    {
+        "id_user": 6,
+        "createdAt": "2023-03-13 10:34:59",
+        "name": "Jordi",
         "pwd": "1234",
         "rol": "office",
+        "deleted": "0"
+    },
+    {
+        "id_user": 7,
+        "createdAt": "2023-03-13 10:38:40",
+        "name": "Laura",
+        "surn": "Garcia",
+        "pwd": "1234",
+        "rol": "manager",
         "deleted": "0"
     }
 ]

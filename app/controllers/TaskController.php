@@ -1,6 +1,8 @@
 <?php
 //require_once ('app/models/TaskModel.php');
  require ROOT_PATH.'/app/models/TaskModel.php';
+
+ 
 class TaskController extends Controller {
 
     public function indexAction(){
@@ -8,7 +10,9 @@ class TaskController extends Controller {
     }
 
     public function addAction(){
-        echo "hola desde addAction";
+        // DEBUG
+        // echo "TaskController::addAction...";
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             if (isset($_POST['masterUsr_id']) && isset($_POST['description']) && isset($_POST['created_at']) && isset($_POST['done']) && isset($_POST['currentStatus'])){
                 $arrFields = array(
@@ -19,22 +23,84 @@ class TaskController extends Controller {
                     'created_at' => $_POST["created_at"],
                     'done' => $_POST["done"],
                     'currentStatus' => $_POST["currentStatus"]);
-
                     
                     $taskObj = new TaskModel($arrFields);
                     $result = $taskObj->createTask($arrFields);
-
                     
                     if ($result==true){
-                        header("Location: listtask");
+                        header("Location: viewalltask");
                     }else{
                         echo "Error creating Task";
                     }
             }    return $result;   
         }
-        
     }
     
+    public function storeAction(){
+
+        // DEBUG
+        echo "<br>TaskController::storeAction...";
+        // die;
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+            echo "<br>POST llenado...";
+            if (isset($_POST['masterUsr_id']) && isset($_POST['description']) && isset($_POST['created_at']) && isset($_POST['slaveUsr_id']) ){
+
+                echo "<br>POST[masterUsr_id] es: " . $_POST['masterUsr_id'];
+                echo "<br>POST[description] es: " . $_POST['description'] . "<br><br><br><br>";
+                // die;
+
+                // 1. recollim les dades de la Tasca
+                $fields = array(
+                    'description' => $_POST["description"],
+                    'masterUsr_id' => $_POST["masterUsr_id"],
+                    'slaveUsr_id' => $_POST["slaveUsr_id"],
+                    'created_at' => $_POST["created_at"]
+                    // 'done' => $_POST["done"],
+                    // 'currentStatus' => $_POST["currentStatus"]
+                );
+                
+                echo "<br><br> Abans de instanciar Task, el var_dump de fields = ";
+                var_dump($fields);
+                echo "<br>";
+
+                // 2. Instanciem l'objecte Tasca
+                $objTask = new TaskModel($fields);
+
+                // 3. interactuar amb Model (mètode implementat a la Classe del Model per grabar)
+                // $result = $taskObj->createTask($arrFields);
+
+                echo "<br> ja instanciat Task, var_dump de objTask->arrTasks = ";
+                var_dump($objTask->arrTasks);
+                echo "<br>";
+                // die;
+
+                if (count($objTask->arrTasks)>0){
+                    echo "<br> objTask->arrTasks tiene una tarea ya como minimo<br>";
+                    $result = $objTask->saveJson($objTask->arrTasks, $objTask->arrFields);    
+                }else{
+                    $result = $objTask->saveJson($objTask->arrTasks, $objTask->arrFields);
+                    echo "<br> objTask->arrTasks NO tiene ninguna tarea, esta será la primera<br>";
+                }
+
+                // YA GRABA BIEN !!!!!!  ...PERO SOBREESCRIBE SIEMPRE LA MISMA TAREA  :( 
+                echo "<br>task stored, result=" . $result . "<br>";
+
+                // Y MATAMOS CON DIE ... pq no devuelve View, da error: solo un argumento a Constructor
+                die;
+
+                // 4. si result OK podrem anar a la View de Tasks altre cop, on veurem la nova tasca llistada
+                if ($result==true){
+                    header("Location: viewalltask");
+                }else{
+                    echo "Error creating Task";
+                }
+                return $result;   
+            }
+        }
+    }
+
     public function delAction(){ //dudas sobre el action de delete si las paginas esta bien referenciadas
         echo "hola desde delAction";
         // if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -94,7 +160,7 @@ class TaskController extends Controller {
                         $completed = $taskObj->completedTask($_POST['id_task']);
                     }elseif ($_POST ['currentStatus']==='Initiated') {
                         $initiated = $taskObj->initiatedTask($_POST['id_task']);
-                    $result = $taskObj->putJson($arrFields);
+                    $result = $taskObj->saveJson($arrFields);
                     if ($result==true){
                         header("Location: listtask");
                     }else{
