@@ -56,6 +56,9 @@ class UserController extends ApplicationController
                     
                     // indiquem que vagi a ruta 'listtask' que és: '/web/listtask' (TaskController::index)
                     header("Location: listtask");
+                    // indiquem que vagi a ruta 'viewalltask' que és: '/web/viewalltask' (TaskController::viewAllAction)
+                    header("Location: viewalltask");
+
                 }else{
                     // echo "Usuari no trobat. Vols registrar-te?<br>"; --> incrustem en la vista                    
                     // si clickem, continuarà en aquest fitxer UserController -> mètode addAction

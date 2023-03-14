@@ -28,13 +28,18 @@ $routes = array(
 	
 	// rutes per TASKS
 	'/test' => 'test#index',
+
+	// menú de Tasks (botones: NovaTasca, BuscarID, ListarTotes, EliminarID)
 	'/listtask' => 'task#index',
+	// all Tasks (ListarTotes)
+	'/viewalltask' => 'task#viewall',	
+	
 	'/addtask'  => 'task#add',
 	'/edittask' => 'task#edit',
 	'/deltask'  => 'task#del',
 	'/viewtask' => 'task#view',
 	'/searchtask' => 'task#search',
 	'/searchtodeletetask' => 'task#searchtodelete',
-	'/viewalltask' => 'task#viewall',
+
 
 );

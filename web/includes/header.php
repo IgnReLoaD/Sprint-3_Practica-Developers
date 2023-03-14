@@ -31,15 +31,3 @@
             </div>
         </div>
     </nav>
-
-    <!-- <p>BD - JSON: users.json</p> -->
-    <!-- <?php include("../db/users.json"); ?> -->
-    <br>
-
-    <!-- <h3>BD - JSON: tasks.json</h3> -->
-    <!-- <?php include("../db/tasks.json"); ?> -->
-    <!-- <br><br> -->
-
-    <!-- <h3>BD - JSON: status.json</h3> -->
-    <!-- <?php include("../db/status.json"); ?> -->
-    <!-- <br><br> -->
