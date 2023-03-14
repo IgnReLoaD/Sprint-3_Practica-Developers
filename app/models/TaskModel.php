@@ -42,6 +42,10 @@ class TaskModel{
     }
 
     public function saveJson($arrTasks, array $singleTask){
+
+        echo "<br>En TaskModel, saveJson... var_dump de argumento arrTasks ...:";
+        var_dump($arrTasks);
+
         //json_encode(file_put_contents(ROOT_PATH. '/db/tasks.json', $arrFields));        
         $result = false;
         if (!empty($singleTask)){      

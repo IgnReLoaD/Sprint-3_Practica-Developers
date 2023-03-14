@@ -39,16 +39,15 @@ class TaskController extends Controller {
     public function storeAction(){
 
         // DEBUG
-        echo "<br>TaskController::storeAction...";
+        // echo "<br>TaskController::storeAction...";
         // die;
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-
-            echo "<br>POST llenado...";
+            
             if (isset($_POST['masterUsr_id']) && isset($_POST['description']) && isset($_POST['created_at']) && isset($_POST['slaveUsr_id']) ){
 
-                echo "<br>POST[masterUsr_id] es: " . $_POST['masterUsr_id'];
-                echo "<br>POST[description] es: " . $_POST['description'] . "<br><br><br><br>";
+                // echo "<br>POST[masterUsr_id] es: " . $_POST['masterUsr_id'];
+                // echo "<br>POST[description] es: " . $_POST['description'] . "<br><br><br><br>";
                 // die;
 
                 // 1. recollim les dades de la Tasca
@@ -61,31 +60,22 @@ class TaskController extends Controller {
                     // 'currentStatus' => $_POST["currentStatus"]
                 );
                 
-                echo "<br><br> Abans de instanciar Task, el var_dump de fields = ";
-                var_dump($fields);
-                echo "<br>";
+                // echo "<br><br> Abans de instanciar Task, el var_dump de fields = ";
+                // var_dump($fields);
+                // echo "<br>";
 
                 // 2. Instanciem l'objecte Tasca
                 $objTask = new TaskModel($fields);
 
                 // 3. interactuar amb Model (mètode implementat a la Classe del Model per grabar)
+                $result = $objTask->saveJson($objTask->arrTasks, $objTask->arrFields);                    
                 // $result = $taskObj->createTask($arrFields);
-
-                echo "<br> ja instanciat Task, var_dump de objTask->arrTasks = ";
-                var_dump($objTask->arrTasks);
-                echo "<br>";
-                // die;
-
-                if (count($objTask->arrTasks)>0){
-                    echo "<br> objTask->arrTasks tiene una tarea ya como minimo<br>";
-                    $result = $objTask->saveJson($objTask->arrTasks, $objTask->arrFields);    
-                }else{
-                    $result = $objTask->saveJson($objTask->arrTasks, $objTask->arrFields);
-                    echo "<br> objTask->arrTasks NO tiene ninguna tarea, esta será la primera<br>";
-                }
+                
 
                 // YA GRABA BIEN !!!!!!  ...PERO SOBREESCRIBE SIEMPRE LA MISMA TAREA  :( 
-                echo "<br>task stored, result=" . $result . "<br>";
+                echo "<br>task stored, result=" . $result . ", var_dump de objTask->getTasks() devuelve...: <br>";
+                var_dump($objTask->getTasks());
+                echo "<br>";
 
                 // Y MATAMOS CON DIE ... pq no devuelve View, da error: solo un argumento a Constructor
                 die;
