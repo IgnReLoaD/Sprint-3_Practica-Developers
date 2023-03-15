@@ -96,14 +96,26 @@ class TaskModel{
 
     // CRUD-UPDATE ... MODIFICAR
     public function updateTask($arrTasks, $idToModify){
+
+        echo "<br>TaskModel::updateTask... valor de _POST['inpDescrip']=" . $_POST['inpDescrip'] . "<br>";
+        echo "<br>TaskModel::updateTask... valor de _POST['inpId']=" . $_POST['inpId'] . "<br>";
+        // die;
+        echo "<br>TaskModel::updateTask... valor de idToModify=" . $idToModify . "<br>";
+
         foreach ($arrTasks as $task) {
-            // cuando encuentre la tarea, si además el usuario es el creador, la podrá modificar
-                    if (($task->id_task == $idToModify) && ($task->masterUsr_id == $_SESSION['user_id'])) {
-                        $task->description = $_POST['inpDescrip'];
-                        $task->slaveUsr_id = $_POST['cmbUserMaster'];
-                    }
-                }
-                $this->saveJson($arrTasks,$foundTask);        
+            // echo "en el foreach... task['id_task']=" . $task['id_task'];            
+            if ($task['id_task'] == $idToModify)  {
+                // if ($task['masterUsr_id'] == $_SESSION['user_id']){
+                    // implementar aquí
+                // }
+                $task['description'] = $_POST['inpDescrip'];
+                $task['slaveUsr_id'] = $_POST['cmbUserSlave'];      
+
+                $result = $this->saveJson($arrTasks,$task);
+                echo "<br>result de saveJson = " . $result . "<br>";
+            }            
+        }
+        return true;      
     }
 
     // CAMBIOS DE STATUS... pendiente para estudiar si lo usamos o no...

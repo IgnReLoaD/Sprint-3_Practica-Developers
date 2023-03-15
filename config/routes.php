@@ -41,7 +41,7 @@ $routes = array(
 	// to present a Form to let user could enter info
 	'/edittask' => 'task#edit',	
 	// to update the task already existing in the BD (usará método de Modelo, updateTask)
-	'/updatetask' => 'task#edit'
+	'/updatetask' => 'task#update'
 
 	// '/viewtask' => 'task#view',
 	// '/searchtask' => 'task#search',

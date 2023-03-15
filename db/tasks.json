@@ -21,10 +21,38 @@
         "slaveUsr_id": "3"
     },
     {
-        "id_task": 4,
+        "id_task": 3,
         "created_at": "2023-03-15",
-        "description": "Task de prueba5",
-        "masterUsr_id": "1",
-        "slaveUsr_id": "4"
+        "description": "Task de prueba3",
+        "masterUsr_id": "2",
+        "slaveUsr_id": null
+    },
+    {
+        "id_task": 3,
+        "created_at": "2023-03-15",
+        "description": "Task de prueba3",
+        "masterUsr_id": "2",
+        "slaveUsr_id": null
+    },
+    {
+        "id_task": 3,
+        "created_at": "2023-03-15",
+        "description": "Task de prueba4",
+        "masterUsr_id": "2",
+        "slaveUsr_id": "3"
+    },
+    {
+        "id_task": 3,
+        "created_at": "2023-03-15",
+        "description": "Task de prueba4",
+        "masterUsr_id": "2",
+        "slaveUsr_id": "3"
+    },
+    {
+        "id_task": 3,
+        "created_at": "2023-03-15",
+        "description": "Task de prueba4",
+        "masterUsr_id": "2",
+        "slaveUsr_id": "3"
     }
 ]

@@ -20,7 +20,15 @@
         <section class="flex justify-center items-center bg-gray-300 text-center w-full ">
             <div class="max-w-md w-full  bg-white rounded p-6 my-4 space-y-4">
                 <p class="text-red-500 text-xs italic">Please fill out this field.</p>
-              
+
+                <input 
+                    id   = "inpId"
+                    type = "hidden"                     
+                    value= "<?php echo $task['id_task'] ?>"
+                    name = "inpId"
+                    
+                />
+
                 <label for="inpCrated_at" class=" block text-sm font-medium text-slate-700">Data creació:</label>
                 <input 
                     id   = "inpCreated_at"
@@ -36,19 +44,25 @@
                     id   = "inpDescrip"
                     type ="text"
                     value="<?php echo $task['description'] ?>"                    
-                    name ="description"
+                    name ="inpDescrip"
                     class="justify-center shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 />
 
                 <label for="cmbUserMaster" class=" block text-sm font-medium text-slate-700">Usuari creador:</label>
-                <select id="cmbUserMaster" class=" flex items-center justify-center block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                <select 
+                    id   = "cmbUserMaster" 
+                    name = "cmbUserMaster" 
+                    class=" flex items-center justify-center block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                     <option value="<?php echo $task['masterUsr_id'] ?>">
                         <?php echo $task['masterUsr_id'] ?> 
                     </option>
                 </select>
                 
                 <label for="cmbUserSlave" class=" block text-sm font-medium text-slate-700">Usuari executor:</label>
-                <select id="cmbUserSlave" class=" flex items-center justify-center block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                <select 
+                    id   = "cmbUserSlave" 
+                    name = "cmbUserSlave"
+                    class=" flex items-center justify-center block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                     <option value="<?php echo $task['slaveUsr_id'] ?>">
                         <?php echo $task['slaveUsr_id'] ?> 
                     </option>                    
@@ -71,12 +85,20 @@
                 </select>
 
                 <div class = "flex items-center justify-evenly">                        
-                    <button type="submit" id="cancel" name="cancel" class="w-40 py-4 bg-gray-300 hover:bg-gray-400 rounded text-sm font-bold text-pink-600 border-pink-600 transition duration-200" >
+                    <button type="submit" 
+                            id="cancel" 
+                            name="cancel" 
+                            class="w-40 py-4 bg-gray-300 hover:bg-gray-400 rounded text-sm font-bold text-pink-600 border-pink-600 transition duration-200" >
+
                         <a href="viewalltask" class="underline hover:no-underline no-underline text-pink-600 border-pink-600 transition duration-200 hover:text-pink-600">
-                           << Cancel (back to list) </a>
+                           < Cancel·lar i tornar
+                        </a>
                     </button>
-                    <button type="submit" name="viewtask" class="w-40 py-4 bg-pink-600 hover:bg-pink-800 rounded text-sm font-bold text-gray-50 transition duration-200">
-                        Save 
+                    <button type="submit" 
+                            id="btnSaveTask" 
+                            name="btnSaveTask" 
+                            class="w-40 py-4 bg-pink-600 hover:bg-pink-800 rounded text-sm font-bold text-gray-50 transition duration-200">
+                        Modificar tasca
                     </button>
                 </div>
             </div>
