@@ -68,6 +68,16 @@ class TaskModel{
         return $tasks;        
     }
 
+    public function getTaskById($id){
+        $arrTasks = $this->getTasks();
+        foreach ($arrTasks as $singleTask){
+            if ($singleTask['id_task'] == $id) {
+                return $singleTask;
+                // var_dump($singleTask);
+            }
+        }
+    }
+
     public function destroy($id) {
         $key = -1;
         // echo "<br> Entra en destroy(".$id.") <br>";
@@ -84,6 +94,18 @@ class TaskModel{
         return $result? true : false;
     }
 
+    // CRUD-UPDATE ... MODIFICAR
+    public function updateTask($arrTasks, $idToModify){
+        foreach ($arrTasks as $task) {
+            // cuando encuentre la tarea, si además el usuario es el creador, la podrá modificar
+                    if (($task->id_task == $idToModify) && ($task->masterUsr_id == $_SESSION['user_id'])) {
+                        $task->description = $_POST['inpDescrip'];
+                        $task->slaveUsr_id = $_POST['cmbUserMaster'];
+                    }
+                }
+                $this->saveJson($arrTasks,$foundTask);        
+    }
+
     // CAMBIOS DE STATUS... pendiente para estudiar si lo usamos o no...
     public function completedTask($taskid){
         $tasks = $this->arrTask;
@@ -98,14 +120,12 @@ class TaskModel{
         }
     }
 
-
     public function initiatedTask($taskid){
         $tasks = $this->arrTask;
         if (is_array($tasks)){
             foreach ($tasks as $task) {
                 if($task['id_task'] === $taskid){
-                    $task['currentStatus'] = 'in progress';
-                    
+                    $task['currentStatus'] = 'in progress';                    
                 }
             }
             $this->saveJson($task);

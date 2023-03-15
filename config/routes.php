@@ -28,23 +28,23 @@ $routes = array(
 	
 	// rutes per TASKS
 	'/test' => 'test#index',
-
 	// menú de Tasks (botones: NovaTasca, BuscarID, ListarTotes, EliminarID)
 	'/listtask' => 'task#index',
 	// all Tasks (ListarTotes)
 	'/viewalltask' => 'task#viewall',	
 	// add Task (formulari input camps)
 	'/addtask'  => 'task#add',
-	// to store the task in the BD
+	// to store the task when it is New in the BD
 	'/storetask' => 'task#store',
 	// to delete the task in the BD
 	'/deltask'  => 'task#del',
-	
-	'/viewtask' => 'task#view',
-	'/edittask' => 'task#edit',
+	// to present a Form to let user could enter info
+	'/edittask' => 'task#edit',	
+	// to update the task already existing in the BD (usará método de Modelo, updateTask)
+	'/updatetask' => 'task#edit'
 
-
-	'/searchtask' => 'task#search',
-	'/searchtodeletetask' => 'task#searchtodelete',
+	// '/viewtask' => 'task#view',
+	// '/searchtask' => 'task#search',
+	// '/searchtodeletetask' => 'task#searchtodelete',
 
 );

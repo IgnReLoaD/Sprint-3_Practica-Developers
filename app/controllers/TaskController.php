@@ -12,7 +12,7 @@ class TaskController extends Controller {
 
     // TO PRESENT A FORM TO THE USER, TO LET HIM INPUT SOME 'TASK DATA'
     public function addAction(){
-        echo "<br>TaskController::addAction...<br>";
+        // echo "<br>TaskController::addAction...<br>";
     }
     
     // STORE IN BD THE INPUT FORM VALUES -----------------------------
@@ -81,36 +81,27 @@ class TaskController extends Controller {
 
     // EDITAR UNA TASCA --------------------------------
     public function editAction(){
-        echo "hola desde editAction";
-        if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-            if (isset ($_POST['id_task'])){}
-                if (isset($_POST['masterUsr_id']) && isset($_POST['description']) && isset($_POST['created_at']) && isset($_POST['done']) && isset($_POST['currentStatus'])){
-                    $arrFields = array(
-                        'masterUsr_id' => $_POST["masterUsr_id"],
-                        'description' => $_POST["description"],
-                        'created_at' => $_POST["created_at"],
-                        'done' => $_POST["done"],
-                        'currentStatus' => $_POST["currentStatus"]);
-                        
-                    $taskObj = new TaskModel($arrFields);
-                    if ($_POST ['currentStatus']==='In Progress') {
-                        $inprogress = $taskObj->initiatedTask($_POST['id_task']);
-                    }elseif ($_POST ['currentStatus']==='Deleted') {
-                        $deleted = $taskObj->deletedTask($_POST['id_task']);
-                    }elseif ($_POST ['currentStatus']==='Completed') {
-                        $completed = $taskObj->completedTask($_POST['id_task']);
-                    }elseif ($_POST ['currentStatus']==='Initiated') {
-                        $initiated = $taskObj->initiatedTask($_POST['id_task']);
-                    $result = $taskObj->saveJson($arrFields);
-                    if ($result==true){
-                        header("Location: listtask");
-                    }else{
-                        echo "Error creating Task";
-                    }
-                }  
-                return $result;
-            } 
-        }
+
+        if ($_SERVER['REQUEST_METHOD'] == 'GET'){
+            if (isset ($_GET['id_task'])) {
+                $objTask = new TaskModel([
+                    'description' => 'descrip',
+                    'masterUsr_id' => '1',
+                    'slaveUsr_id' => '1'
+                ]);
+                $id = $_GET['id_task'];
+
+                // si estem cridant al formulari, encara els inputs buits --> cridem la View Edit, passant la info
+                if (empty($_POST)) {
+                    $this->view->__set('data', $objTask->getTaskById($id));
+
+                // si estem retornant del formulari, els inputs ja plens --> cridem mètode Grabar i tornem a View llistat
+                } else {
+                    $objTask->updateTask($objTask->getTasks(), $id);
+                    header("Location: viewalltask");
+                }
+            }
+        }  
     }
 
 
