@@ -51,17 +51,15 @@ class UserModel {
 
     // METODES ESPECIFICS de Classe:
     public function exists($nom,$pwd){
-        // DEBUG:
-        // echo "<br>function exists -> $ nom = " . $nom ."<br>";
         $match = false;
-        foreach ($this->_arrUsers as $user){
-            // echo "var_dump de $ user : " . var_dump($user) . "<br>";
-            if ( ($user['name'] == $nom) && ($user['pwd']==$pwd) ) {
-                $match = true;
+        if ($this->_arrUsers != null){
+            foreach ($this->_arrUsers as $user){
+                // echo "var_dump de $ user : " . var_dump($user) . "<br>";
+                if ( ($user['name'] == $nom) && ($user['pwd']==$pwd) ) {
+                    $match = true;
+                }
             }
         }
-        // DEBUG:
-        // echo "match: " . $match;
         return $match;
     }
 

@@ -124,7 +124,8 @@ class UserController extends ApplicationController
 
                 // 4. permetem anar a View Tasks, o mens Error (el què fa és anar a TaskController::indexAction)
                 if ($result==true){
-                    header("Location: listtask");
+                    // header("Location: listtask");
+                    header("Location: index");
                 }else{
                     echo "No hem pogut grabar el nou usuari.";
                     die;

@@ -1,7 +1,7 @@
 [
     {
         "id_user": 1,
-        "createdAt": "2023-03-13 10:40:55",
+        "createdAt": "2023-03-15 00:21:37",
         "name": "Ignasi",
         "surn": "Ortiz",
         "pwd": "1234",
@@ -10,7 +10,7 @@
     },
     {
         "id_user": 2,
-        "createdAt": "2023-03-13 10:41:46",
+        "createdAt": "2023-03-15 00:22:05",
         "name": "Marta",
         "surn": "Cruz",
         "pwd": "1234",
@@ -19,16 +19,7 @@
     },
     {
         "id_user": 3,
-        "createdAt": "2023-03-13 11:33:49",
-        "name": "Xavier",
-        "surn": "Saez",
-        "pwd": "1234",
-        "rol": "office",
-        "deleted": "0"
-    },
-    {
-        "id_user": 4,
-        "createdAt": "2023-03-13 13:11:27",
+        "createdAt": "2023-03-15 00:22:35",
         "name": "JoanCarles",
         "surn": "Godinez",
         "pwd": "1234",
