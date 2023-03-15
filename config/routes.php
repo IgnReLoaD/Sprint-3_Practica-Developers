@@ -37,10 +37,12 @@ $routes = array(
 	'/addtask'  => 'task#add',
 	// to store the task in the BD
 	'/storetask' => 'task#store',
-
+	// to delete the task in the BD
+	'/deltask'  => 'task#del',
+	
 	'/viewtask' => 'task#view',
 	'/edittask' => 'task#edit',
-	'/deltask'  => 'task#del',
+
 
 	'/searchtask' => 'task#search',
 	'/searchtodeletetask' => 'task#searchtodelete',

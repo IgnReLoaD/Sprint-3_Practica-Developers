@@ -46,12 +46,12 @@
                                     <th class="px-6 py-2 text-xs text-gray-500">
                                         Slave User
                                     </th>                                    
-                                    <th class="px-6 py-2 text-xs text-gray-500">
+                                    <!-- <th class="px-6 py-2 text-xs text-gray-500">
                                         Status
                                     </th>
                                     <th  class="px-6 py-2 text-xs text-gray-500">
                                         Finish date
-                                    </th>
+                                    </th> -->
                                     <th class="px-6 py-2 text-xs text-gray-500">
                                         Edit
                                     </th>
@@ -94,20 +94,6 @@
                                         endforeach;                                         
                                         ?>
                                     </td>                                    
-                                    <td class="px-6 py-4">
-                                        <div id = 'currentStatus' class="text-sm text-gray-500">
-                                        <?php echo $task['currentStatus']?>
-                                        </div>
-                                    </td>
-                                    <td id = 'done' class="text-center px-6 py-4 text-sm text-gray-500">
-                                        <?php 
-                                            if ($task['done'] != 'null') {
-                                                echo $task['done'];
-                                            }else{
-                                                echo 'n.a.';
-                                            }
-                                            ?>
-                                    </td>
 
                                     <td class="px-6 py-4">
                                         <a href="edittask?id_task=<?php echo $task['id_task']?>">
@@ -138,9 +124,9 @@
                         <button type= "submit" id = "addtask" name = "addtask" class="w-40 py-4 bg-pink-600 hover:bg-pink-800 rounded text-sm font-bold text-gray-50 transition duration-200" >
                             <a href="addtask" class =" underline hover:no-underline no-underline text-white" >Create Task </a>
                         </button>
-                        <button type = "submit" id= "cancel" name ="cancel"  class="w-40 py-4 bg-gray-300 hover:bg-gray-400 rounded text-sm font-bold text-pink-600 border-pink-600 transition duration-200">
+                        <!-- <button type = "submit" id= "cancel" name ="cancel"  class="w-40 py-4 bg-gray-300 hover:bg-gray-400 rounded text-sm font-bold text-pink-600 border-pink-600 transition duration-200">
                             <a href="listtask" class =" underline hover:no-underline no-underline text-pink-600 border-pink-600 transition duration-200 hover:text-pink-600" >Back</a>
-                        </button>
+                        </button> -->
                     </madre>
                 </div>
             </div>
