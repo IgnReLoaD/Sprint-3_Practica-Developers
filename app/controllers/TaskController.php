@@ -81,7 +81,10 @@ class TaskController extends Controller {
 
     // EDITAR UNA TASCA --------------------------------
     public function editAction(){
-        echo "hola desde editAction";
+        // echo "hola desde editAction";
+
+        // FALTA indicar el ID a Editar, y llenar los textBox con los valores, y luego Grabar json_encode etc....
+        
         if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             if (isset ($_POST['id_task'])){}
                 if (isset($_POST['masterUsr_id']) && isset($_POST['description']) && isset($_POST['created_at']) && isset($_POST['done']) && isset($_POST['currentStatus'])){
