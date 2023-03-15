@@ -1,8 +1,14 @@
 <?php
     // $task = $this->arrFields['data'];
-    $task = $this->arrFields;
-    echo "valor de task=" . $task;
-    var_dump($task);
+    $task = $this->data;
+
+    // echo "En la View... valor data, recogido en array, var_dump de array task=";
+    // var_dump($task);
+    // $userMaster = $task['masterUsr_id'];
+    // $userSlave = $task['slaveUsr_id'];
+    // $description = $task['description'];
+    // $created_at = $task['created_at'];
+    // echo "<br><br> Els valors en variables son... " . $userMaster . ", " . $userSlave . ", " . $description . ", " . $created_at . "<br>";
 ?>
 
 <body>
@@ -13,32 +19,39 @@
             
         <section class="flex justify-center items-center bg-gray-300 text-center w-full ">
             <div class="max-w-md w-full  bg-white rounded p-6 my-4 space-y-4">
-                <label class=" block text-sm font-medium text-slate-700" for="user">User</label>
-                <input type="text" value="" id= "user" class="justify-center shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  >
                 <p class="text-red-500 text-xs italic">Please fill out this field.</p>
               
-                <label for="inpCrated_at" class=" block text-sm font-medium text-slate-700">Created date</label>
+                <label for="inpCrated_at" class=" block text-sm font-medium text-slate-700">Data creació:</label>
                 <input 
-                    id  ="inpCreated_at"
-                    type="date"
-                    value="<?php (!empty($task)) ? $task->created_at : ''; ?>" 
-                    name="created_at"
-                    class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    id   = "inpCreated_at"
+                    type = "text"
+                    value= "<?php echo $task['created_at'] ?>"                    
+                    name = "created_at"
+                    class= "form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                     placeholder="Pick a date"
                 />
 
-                <label for="inpDescrip" class=" block text-sm font-medium text-slate-700">Task Description</label>
+                <label for="inpDescrip" class=" block text-sm font-medium text-slate-700">Descripció:</label>
                 <input 
                     id   = "inpDescrip"
                     type ="text"
-                    value="<?php (!empty($task)) ? $task->description : ''; ?>"
+                    value="<?php echo $task['description'] ?>"                    
                     name ="description"
                     class="justify-center shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 />
 
-                <label for="cmbUserMaster" class=" block text-sm font-medium text-slate-700">User master:</label>
-                <select id="cmbUserMaster" class=" flex items-center justify-center block appearance-none w-1/2 bg-white border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-
+                <label for="cmbUserMaster" class=" block text-sm font-medium text-slate-700">Usuari creador:</label>
+                <select id="cmbUserMaster" class=" flex items-center justify-center block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option value="<?php echo $task['masterUsr_id'] ?>">
+                        <?php echo $task['masterUsr_id'] ?> 
+                    </option>
+                </select>
+                
+                <label for="cmbUserSlave" class=" block text-sm font-medium text-slate-700">Usuari executor:</label>
+                <select id="cmbUserSlave" class=" flex items-center justify-center block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option value="<?php echo $task['slaveUsr_id'] ?>">
+                        <?php echo $task['slaveUsr_id'] ?> 
+                    </option>                    
                 </select>
 
                 <label for="cmbCurrentStatus" class=" block text-sm font-medium text-slate-700">Status</label>                

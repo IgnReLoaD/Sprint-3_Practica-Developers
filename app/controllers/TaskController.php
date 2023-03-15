@@ -81,7 +81,6 @@ class TaskController extends Controller {
 
     // EDITAR UNA TASCA --------------------------------
     public function editAction(){
-        // echo "hola desde editAction";
 
         if ($_SERVER['REQUEST_METHOD'] == 'GET'){
             if (isset ($_GET['id_task'])) {
@@ -92,19 +91,12 @@ class TaskController extends Controller {
                 ]);
                 $id = $_GET['id_task'];
 
-                echo "<br>TaskController::editAction ... id del GET[id_task]=" . $id;
-
                 // si estem cridant al formulari, encara els inputs buits --> cridem la View Edit, passant la info
                 if (empty($_POST)) {
-                    echo "<br> POST tiene inputs vacíos...<br>";
-                    // die;
-
                     $this->view->__set('data', $objTask->getTaskById($id));
+
                 // si estem retornant del formulari, els inputs ja plens --> cridem mètode Grabar i tornem a View llistat
                 } else {
-                    echo "<br> POST tiene inputs llenados...<br>";
-                    // die;
-
                     $objTask->updateTask($objTask->getTasks(), $id);
                     header("Location: viewalltask");
                 }

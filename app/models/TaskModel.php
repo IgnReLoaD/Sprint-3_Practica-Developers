@@ -69,13 +69,11 @@ class TaskModel{
     }
 
     public function getTaskById($id){
-
         $arrTasks = $this->getTasks();
-        foreach ($arrTasks as $key => $task) {
-            if ($task['id_task'] == $id) {
-                return $task;
-            }else{
-                return null;
+        foreach ($arrTasks as $singleTask){
+            if ($singleTask['id_task'] == $id) {
+                return $singleTask;
+                // var_dump($singleTask);
             }
         }
     }
