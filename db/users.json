@@ -34,5 +34,23 @@
         "pwd": "1234",
         "rol": "boss",
         "deleted": "0"
+    },
+    {
+        "id_user": 5,
+        "createdAt": "2023-03-16 12:55:20",
+        "name": "Gabi",
+        "surn": "Maureira",
+        "pwd": "1234",
+        "rol": "office",
+        "deleted": "0"
+    },
+    {
+        "id_user": 6,
+        "createdAt": "2023-03-16 13:15:45",
+        "name": "Sonia",
+        "surn": "Ouadhi",
+        "pwd": "1234",
+        "rol": "manager",
+        "deleted": "0"
     }
 ]

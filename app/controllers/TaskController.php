@@ -1,7 +1,7 @@
 <?php
 //require_once ('app/models/TaskModel.php');
  require ROOT_PATH.'/app/models/TaskModel.php';
-
+ require ROOT_PATH.'/app/models/UserModel.php';
  
 class TaskController extends Controller {
 
@@ -12,7 +12,13 @@ class TaskController extends Controller {
 
     // TO PRESENT A FORM TO THE USER, TO LET HIM INPUT SOME 'TASK DATA'
     public function addAction(){
-        // echo "<br>TaskController::addAction...<br>";
+        $objUser = new UserModel([
+            'nom' => '', 
+            'cog' => '', 
+            'rol' => '', 
+            'pwd' => ''
+        ]);
+        $this->view->__set('users', $objUser->getUsers() );
     }
     
     // STORE IN BD THE INPUT FORM VALUES -----------------------------
@@ -59,7 +65,6 @@ class TaskController extends Controller {
 
     // ELIMINAR UNA TASCA -------------------------------------------
     public function delAction(){ 
-
         if ($_SERVER['REQUEST_METHOD'] == 'GET'){
             if (isset ($_GET['id_task'])) {
                 $objTask = new TaskModel([
@@ -73,7 +78,6 @@ class TaskController extends Controller {
                     header('Location: viewalltask');
                 }else{
                     echo "ATENCIO: no s'ha pogut eliminar!!";
-                    die;
                 }
             }
         }
@@ -82,64 +86,39 @@ class TaskController extends Controller {
 
     // EDITAR UNA TASCA --------------------------------
     public function editAction(){
-
         if ($_SERVER['REQUEST_METHOD'] == 'GET'){
             if (isset ($_GET['id_task'])) {
-
-                // echo "<br> GET['id_task']=". $_GET['id_task'];
-                // die;
-
+                $objUser = new UserModel([
+                    'nom' => '', 
+                    'cog' => '', 
+                    'rol' => '', 
+                    'pwd' => ''
+                ]);
                 $objTask = new TaskModel([
                     'description' => 'descrip',
                     'masterUsr_id' => '1',
                     'slaveUsr_id' => '1'
                 ]);
-                $id = $_GET['id_task'];
-                $this->view->__set('data', $objTask->getTaskById($id));
-
-                // si estem cridant al formulari, encara els inputs buits --> cridem la View Edit, passant la info
-                // if (empty($_POST)) {
-                //     $this->view->__set('data', $objTask->getTaskById($id));
-
-                // si estem retornant del formulari, els inputs ja plens --> cridem mètode Grabar i tornem a View llistat
-                // } else {
-                //     echo "<br> tasca inputada, en TaskController::editAction ... anem a grabar amb objTask->updateTsk()... <br>";
-                //     die;
-
-                //     $objTask->updateTask($objTask->getTasks(), $id);
-
-                //     echo "<br> tasca grabada, anem a viewalltask... <br>";
-                //     die;
-
-                //     header("Location: viewalltask");
-                // }
+                $id = $_GET['id_task'];                
+                $this->view->__set('data', $objTask->getTaskById($id) );
+                $this->view->__set('users', $objUser->getUsers() );
             }
         }  
     }
 
-    // UPDATE GRABAR TASCA EDITADA
+    // UPDATE GRABAR TASCA EDITADA ----------------------
     public function updateAction(){
-
-        // echo "POST['inpId'] = " . $_POST['inpId'] . "<br>";
-        // die;
-
-        // echo "<br>TaskController::updateAction ... <br>";
         if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-            // instanciem un objTask qualsevol (constructor ens obliga a posar dades sino peta)
             $objTask = new TaskModel([
                 'description' => 'descrip',
                 'masterUsr_id' => '1',
                 'slaveUsr_id' => '1'
             ]);
-            
-            echo "<br>TaskController::updateAction ... POST['inpId'] = " . $_POST['inpId'] . "<br>";
-            // die;
-
-            // utilitzem els mètodes del objTask
             $objTask->updateTask($objTask->getTasks(), $_POST['inpId']);
             header("Location: viewalltask");
         }
     }
+
 
 }
 

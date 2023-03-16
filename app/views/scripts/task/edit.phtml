@@ -1,14 +1,6 @@
 <?php
-    // $task = $this->arrFields['data'];
     $task = $this->data;
-
-    // echo "En la View... valor data, recogido en array, var_dump de array task=";
-    // var_dump($task);
-    // $userMaster = $task['masterUsr_id'];
-    // $userSlave = $task['slaveUsr_id'];
-    // $description = $task['description'];
-    // $created_at = $task['created_at'];
-    // echo "<br><br> Els valors en variables son... " . $userMaster . ", " . $userSlave . ", " . $description . ", " . $created_at . "<br>";
+    $user = $this->users;
 ?>
 
 <body>
@@ -52,9 +44,17 @@
                     id   = "cmbUserMaster" 
                     name = "cmbUserMaster" 
                     class="flex items-center justify-center block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                    <option value="<?php echo $task['masterUsr_id'] ?>">
-                        <?php echo $task['masterUsr_id'] ?> 
-                    </option>
+
+                    <?php 
+                        foreach ($user as $key){
+                            if ($key['id_user'] == $task['masterUsr_id']) {
+                                echo '<option value="' . $key['id_user'] . '" selected> ' . $key['name'] . ' </option>  ' ;
+                            }else{
+                                echo '<option value="' . $key['id_user'] . '"> ' . $key['name'] . ' </option>  ' ;
+                            }
+                        } 
+                    ?> 
+
                 </select>
                 
                 <label for="cmbUserSlave" class="block text-sm text-left font-bold text-pink-600 text-4xl">Usuari executor:</label>
@@ -62,9 +62,17 @@
                     id   = "cmbUserSlave" 
                     name = "cmbUserSlave"
                     class="flex items-center justify-center block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                    <option value="<?php echo $task['slaveUsr_id'] ?>">
-                        <?php echo $task['slaveUsr_id'] ?> 
-                    </option>                    
+
+                    <?php 
+                        foreach ($user as $key){
+                            if ($key['id_user'] == $task['slaveUsr_id']) {
+                                echo '<option value="' . $key['id_user'] . '" selected> ' . $key['name'] . ' </option>  ' ;
+                            }else{
+                                echo '<option value="' . $key['id_user'] . '"> ' . $key['name'] . ' </option>  ' ;
+                            }
+                        } 
+                    ?> 
+ 
                 </select>
 
                 <label for="cmbCurrentStatus" class="block text-sm text-left font-bold text-pink-600 text-4xl">Status:</label>                

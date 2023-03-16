@@ -83,7 +83,6 @@ class TaskModel{
         foreach ($this->arrTasks as $key => $task) {
             if ($task['id_task'] == $idToDestroy){                
                 $posKey = $key;
-                // echo "<br> destroy ... key = " . $posKey . "<br>";
             }
         }
         unset($this->arrTasks[$posKey]);
@@ -94,42 +93,27 @@ class TaskModel{
 
     // CRUD-UPDATE ... MODIFICAR
     public function updateTask($arrTasks, $idToModify){
-
-        // echo "<br>TaskModel::updateTask... valor de _POST['inpDescrip']=" . $_POST['inpDescrip'] . "<br>";
-        // echo "<br>TaskModel::updateTask... valor de _POST['inpId']=" . $_POST['inpId'] . "<br>";
-        // die;
-        // echo "<br>TaskModel::updateTask... valor de idToModify=" . $idToModify . "<br>";
-
-        foreach ($this->arrTasks as $key => $task) {
-
-            // echo "<br>en el foreach... task['id_task']=" . $task['id_task'] . "<br>";            
-            
+        $arr = array();
+        $posKey = -1;
+        foreach ($arrTasks as $key => $task) {
             if ($task['id_task'] == $idToModify)  {
-
-                // echo "<br> Encontrado:  task['id_task']=".$task['id_task'] . ", idToModify=" . $idToModify . "<br>";
-                // die;
+                $posKey = $key;
 
                 // if ($task['masterUsr_id'] == $_SESSION['user_id']){
-                    // implementar aquí
+                    // implementar aquí para CONTROL modificar tarea soloamente si usuario logueado
                 // }
+
                 $task['description']   = $_POST['inpDescrip'];
+                $task['masterUsr_id']   = $_POST['cmbUserMaster']; 
                 $task['slaveUsr_id']   = $_POST['cmbUserSlave'];   
                 // $task['currentStatus'] = $_POST['cmbCurrentStatus'];
+                echo "<br> POSICION ARRAY MODIFICADO:  task['description']=" . $task['description'] . ", task['slaveUsr_id']=" . $task['slaveUsr_id'] . "<br>";
 
-                // echo "<br> POSICION ARRAY MODIFICADO:  task['description']=" . $task['description'] . ", task['slaveUsr_id']=" . $task['slaveUsr_id'] . "<br>";
-                // die;
-
-                // amb saveJson va afegint noves tasques, com és llogic, pq fa array_push... tan millor fer:
-                // tallar el json en la posició indicada, i enmig posar la que toca ?????
-                // en comptes de fer ---> array_push($arrTasks, $singleTask); 
-                // hem de fer un insert a la posicio concreta del JSON ..... 
-                // potser amb un indexOf() i amb un array_replace() del sub array dels fields  ?????
+                $arr = [$idToModify => $task];
+                $this->destroy($idToModify);
+                $this->arrTasks = array_merge($this->arrTasks,[$idToModify => $task]);  
             }   
         }
-        // echo "<br>var_dump de arrTasks antes del encode = ";
-        // var_dump($arrTasks[$idToModify-1]);
-
-        // $this->arrTasks = $arrTasks;
         $jsnTasks = json_encode($this->arrTasks, JSON_PRETTY_PRINT);                
         $result = file_put_contents($this->_jsonFile, $jsnTasks);
         return $result? true : false;     
