@@ -40,8 +40,6 @@ class UserModel {
             'rol'  => $arrFields['rol'],
             'deleted' => '0'
         );  
-        // echo "en UserModel::__construct() ... var_dump de this->_fields:<br>";
-        // var_dump($this->_fields);
     }
 
     // GETTERS-SETTERS
@@ -71,10 +69,7 @@ class UserModel {
             // json_encode:  converteix un ARRAY en un JSON string
             $jsnUsers = json_encode($arrUsers,JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT);
             // file_put: graba en Fitxer txt
-            // $result = file_put_contents($this->_jsonFile, ($jsnUsers . '/n') );  // o PHP_EOL  <-- esto salta pero después del ] por tanto no sirve
             $result = file_put_contents($this->_jsonFile, $jsnUsers);
-            // tot lo d'abans però en una fila:
-            // $result = file_put_contents($this->_jsonFile, json_encode($arrUsers));
         }
         return $result? true : false;                
     }
@@ -85,16 +80,12 @@ class UserModel {
         }else{
             $maxId = 1;
         }
-        // DEBUG:
-        // echo "<br> UserModel->getMaxId...maxId: " . $maxId . "<br>";
         return $maxId;       
     }
 
     // implementamos aquí el DELETE a JSON (un recycle nos permite recuperarlo, todavia no Delete total)
     public function recycle($data,$status) {
-        // cambia el ESTADO de los Atributos, pero es VOLATIL
         $this->setDeleted($status);        
-        // cambia en FICHERO su contenido, PERSISTENCIA de datos
         json_encode($data);
         file_put_contents("../db/users.json",$data);
     }

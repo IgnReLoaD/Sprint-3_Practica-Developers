@@ -27,6 +27,7 @@ class TaskController extends Controller {
                     'masterUsr_id' => $_POST["masterUsr_id"],
                     'slaveUsr_id' => $_POST["slaveUsr_id"],
                     'created_at' => $_POST["created_at"]
+                    // 'currentStatus' => $_POST["cmbCurrentStatus"]
                 );
 
                 // 2. Instanciem l'objecte Tasca

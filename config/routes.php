@@ -13,6 +13,7 @@
 $routes = array(
 	// check test route first
 	// 1. Landing ha de mostrar Vista - users - login
+	
 	// rutes per USERS
     '/'         => 'user#index',
     '/index'    => 'user#index',
@@ -25,7 +26,9 @@ $routes = array(
     '/edituser' => 'user#edit',   // 'UserController.php?id=3' ... rebrà per GET la ID ... function editAction($_GET[id])
 	// 4. Eliminar DEL user
     '/deluser'  => 'user#del',
-	
+	// 5. Logout
+	'/logout'   => 'user#logout',
+
 	// rutes per TASKS
 	'/test' => 'test#index',
 	// menú de Tasks (botones: NovaTasca, BuscarID, ListarTotes, EliminarID)

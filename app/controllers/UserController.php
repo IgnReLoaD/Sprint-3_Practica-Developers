@@ -26,9 +26,6 @@ class UserController extends ApplicationController
                 if (!empty($_POST['remember'])) {
                     setcookie('userDevelopersTeam', $_POST['inpNom'], time()+3600 + (int) $_POST['rememberTime'], "/"); 
                 }
-                // DEBUG:
-                // echo "entrem a UserController::indexAction -> IF-isset-POST[inpNom]<br><br>";
-
 
                 // carreguem els valors dels txtBox a dins un array
                 $fields = array(
@@ -71,40 +68,23 @@ class UserController extends ApplicationController
 
     // GET ALL USERS (para pasar a la view y pintar el user correcto)
     public function getAllUsersAction(){        
-
         $fields = array(
             'nom' => '', 
             'cog' => '', 
             'rol' => '', 
             'pwd' => ''
         );       
-
         $objUser = new UserModel($fields);
         return $objUser->getUsers();  
     }
 
-    // des de '/viewsfunció per AFEGIR (CREATE)
+    // funció per AFEGIR (CREATE)
     public function addAction(){                        
 
         // DEBUG: 
         // echo "<br>UserController::addAction -> comprobant si inpNom i inpRol estan plens...<br>";           
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-            // echo "UserController::addAction -> comprobant si REQUEST_METHOD es POST... <br>";
- 
-            // if (isset($_POST['inpNom'])) {
-            //     echo "UserController::addAction -> POST[inpNom] ->" . $_POST['inpNom'] . "<br>";
-            // }
-            // if (isset($_POST['inpCog'])) {                
-            //     echo "UserController::addAction -> POST[inpCog] ->" . $_POST['inpCog'] . "<br>";            
-            // }
-            // if (isset($_POST['inpRol'])) {
-            //     echo "UserController::addAction -> POST[inpRol] ->" . $_POST['inpRol'] . "<br>";
-            // }
-            // if (isset($_POST['inpPwd'])) {            
-            //     echo "UserController::addAction -> POST[inpPwd] ->" . $_POST['inpPwd'] . "<br>";
-            // }
 
             if ((isset($_POST['inpNom'])) && (isset($_POST['inpCog'])) && (isset($_POST['inpRol'])) && (isset($_POST['inpPwd']))) {                   
 
@@ -148,22 +128,9 @@ class UserController extends ApplicationController
         }
     }
 
-
-    function proves(){
-        // Instanciem l'objecte real - omplint Array d'Objectes per cada User 
-        $arrUsers = [];
-        foreach ($json_users as $register){
-            // $objUser = new UserModel("1",$register[1],$register[2]);
-            $objUser = new UserModel;
-            // $objUser->__construct($id,$name,$rol)
-            // $objUser->setName($register[1]);
-            // $objUser->setRol($register[2]);            
-            array_push($arrUsers,$objUser);
-        }
-        foreach ($arrUsers as $person){
-            echo $person->show();
-        }
-        // $objUser->showUser();
+    function logoutAction(){
+        session_destroy();
+        header("Location: index");
     }
 
 }

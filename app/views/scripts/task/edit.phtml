@@ -19,17 +19,16 @@
             
         <section class="flex justify-center items-center bg-gray-300 text-center w-full ">
             <div class="max-w-md w-full  bg-white rounded p-6 my-4 space-y-4">
-                <p class="text-red-500 text-xs italic">Please fill out this field.</p>
+                <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
 
                 <input 
                     id   = "inpId"
                     type = "hidden"                     
                     value= "<?php echo $task['id_task'] ?>"
-                    name = "inpId"
-                    
+                    name = "inpId"                    
                 />
 
-                <label for="inpCrated_at" class=" block text-sm font-medium text-slate-700">Data creació:</label>
+                <label for="inpCrated_at" class=" block text-sm text-left font-bold text-pink-600 text-4xl">Data creació:</label>
                 <input 
                     id   = "inpCreated_at"
                     type = "text"
@@ -39,7 +38,7 @@
                     placeholder="Pick a date"
                 />
 
-                <label for="inpDescrip" class=" block text-sm font-medium text-slate-700">Descripció:</label>
+                <label for="inpDescrip" class=" block text-sm text-left font-bold text-pink-600 text-4xl">Descripció:</label>
                 <input 
                     id   = "inpDescrip"
                     type ="text"
@@ -48,41 +47,49 @@
                     class="justify-center shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 />
 
-                <label for="cmbUserMaster" class=" block text-sm font-medium text-slate-700">Usuari creador:</label>
+                <label for="cmbUserMaster" class="block text-sm text-left font-bold text-pink-600 text-4xl">Usuari creador:</label>
                 <select 
                     id   = "cmbUserMaster" 
                     name = "cmbUserMaster" 
-                    class=" flex items-center justify-center block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    class="flex items-center justify-center block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                     <option value="<?php echo $task['masterUsr_id'] ?>">
                         <?php echo $task['masterUsr_id'] ?> 
                     </option>
                 </select>
                 
-                <label for="cmbUserSlave" class=" block text-sm font-medium text-slate-700">Usuari executor:</label>
+                <label for="cmbUserSlave" class="block text-sm text-left font-bold text-pink-600 text-4xl">Usuari executor:</label>
                 <select 
                     id   = "cmbUserSlave" 
                     name = "cmbUserSlave"
-                    class=" flex items-center justify-center block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    class="flex items-center justify-center block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                     <option value="<?php echo $task['slaveUsr_id'] ?>">
                         <?php echo $task['slaveUsr_id'] ?> 
                     </option>                    
                 </select>
 
-                <label for="cmbCurrentStatus" class=" block text-sm font-medium text-slate-700">Status</label>                
-                <select id="cmbCurrentStatus" class=" flex items-center justify-center block appearance-none w-1/2 bg-white border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                    <option value="initiated" <?php if (!empty($task)) {
-                                                    echo ($task->status == 'initiated') ? 'selected' : '';
-                                                } ?>> Init to do</option>
-                    <option value="in_progress" <?php if (!empty($task)) {
-                                                    echo ($task->status == 'in_progress') ? 'selected' : '';
-                                                } ?>> In progress</option>
-                    <option value="done" <?php if (!empty($task)) {
-                                                    echo ($task->status == 'done') ? 'selected' : '';
-                                                } ?>> Done</option>
-                    <option value="deleted" <?php if (!empty($task)) {
-                                                    echo ($task->status == 'deleted') ? 'selected' : '';
-                                                } ?>> Deleted</option>                                                
-                </select>
+                <label for="cmbCurrentStatus" class="block text-sm text-left font-bold text-pink-600 text-4xl">Status:</label>                
+                <div class="max-w-md w-full  bg-white rounded p-6 my-1 space-y-2">
+                    <select 
+                        id   ="cmbCurrentStatus"  
+                        name ="cmbCurrentStatus"
+                        class="block appearance-none w-full bg-white-200 border border-slate-300 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500 text-center">
+                        <option value="Initiated" 
+                            <?php if(!empty($task)) echo ($task['currentStatus'] == 'Initiated') ? ' selected' : '' ?>
+                        >Initiated</option>
+
+                        <option value="In Progress"
+                            <?php if(!empty($task)) echo ($task['currentStatus'] == 'In Progress') ? ' selected' : '' ?>                        
+                        >In Progress</option>
+
+                        <option value="Completed"
+                            <?php if(!empty($task)) echo ($task['currentStatus'] == 'Completed') ? ' selected' : '' ?>                        
+                        >Completed</option>
+
+                        <option value="Deleted"
+                            <?php if(!empty($task)) echo ($task['currentStatus'] == 'Deleted') ? ' selected' : '' ?>                        
+                        >Deleted</option>
+                    </select>                          
+                </div>                
 
                 <div class = "flex items-center justify-evenly">                        
                     <button type="submit" 

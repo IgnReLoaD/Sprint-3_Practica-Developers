@@ -25,5 +25,14 @@
         "pwd": "1234",
         "rol": "office",
         "deleted": "0"
+    },
+    {
+        "id_user": 4,
+        "createdAt": "2023-03-16 01:45:05",
+        "name": "Joel",
+        "surn": "Arana",
+        "pwd": "1234",
+        "rol": "boss",
+        "deleted": "0"
     }
 ]

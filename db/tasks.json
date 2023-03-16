@@ -1,58 +1,33 @@
-[
-    {
+{
+    "0": {
         "id_task": 1,
         "created_at": "2023-03-15",
         "description": "Task de prueba",
         "masterUsr_id": "1",
-        "slaveUsr_id": "2"
+        "slaveUsr_id": "2",
+        "currentStatus": "Initiated"
     },
-    {
+    "1": {
         "id_task": 2,
         "created_at": "2023-03-15",
         "description": "Task de prueba2",
         "masterUsr_id": "1",
-        "slaveUsr_id": "3"
+        "slaveUsr_id": "3",
+        "currentStatus": "Initiated"
     },
-    {
+    "2": {
         "id_task": 3,
         "created_at": "2023-03-15",
         "description": "Task de prueba4",
         "masterUsr_id": "2",
-        "slaveUsr_id": "3"
+        "slaveUsr_id": "3",
+        "currentStatus": "Completed"
     },
-    {
-        "id_task": 3,
-        "created_at": "2023-03-15",
-        "description": "Task de prueba3",
-        "masterUsr_id": "2",
-        "slaveUsr_id": null
-    },
-    {
-        "id_task": 3,
-        "created_at": "2023-03-15",
-        "description": "Task de prueba3",
-        "masterUsr_id": "2",
-        "slaveUsr_id": null
-    },
-    {
-        "id_task": 3,
-        "created_at": "2023-03-15",
-        "description": "Task de prueba4",
-        "masterUsr_id": "2",
-        "slaveUsr_id": "3"
-    },
-    {
-        "id_task": 3,
-        "created_at": "2023-03-15",
-        "description": "Task de prueba4",
-        "masterUsr_id": "2",
-        "slaveUsr_id": "3"
-    },
-    {
-        "id_task": 3,
-        "created_at": "2023-03-15",
-        "description": "Task de prueba4",
-        "masterUsr_id": "2",
+    "4": {
+        "id_task": 5,
+        "created_at": "2023-03-16",
+        "description": "Task de prueba9",
+        "masterUsr_id": "1",
         "slaveUsr_id": "3"
     }
-]
+}

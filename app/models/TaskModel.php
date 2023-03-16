@@ -10,7 +10,7 @@ class TaskModel{
     public $arrFields = array (
         'id_task' => '0',
         'description' => '',
-        'currentStatus' => 'initiated',
+        // 'currentStatus' => 'initiated',
         'created_at' => '', 
         'done' => '',
         'masterUsr_id'=>'',
@@ -38,6 +38,7 @@ class TaskModel{
             'description' => $arrFields['description'],
             'masterUsr_id' => $arrFields['masterUsr_id'],
             'slaveUsr_id'  => $arrFields['slaveUsr_id']
+            // 'currentStatus' => $arrFields['currentStatus']
         );  
     }
 
@@ -73,17 +74,14 @@ class TaskModel{
         foreach ($arrTasks as $singleTask){
             if ($singleTask['id_task'] == $id) {
                 return $singleTask;
-                // var_dump($singleTask);
             }
         }
     }
 
-    public function destroy($id) {
+    public function destroy($idToDestroy) {
         $key = -1;
-        // echo "<br> Entra en destroy(".$id.") <br>";
         foreach ($this->arrTasks as $key => $task) {
-            // echo "<br>task['description'] = " . $task['description'];
-            if ($task['id_task'] == $id){                
+            if ($task['id_task'] == $idToDestroy){                
                 $posKey = $key;
                 // echo "<br> destroy ... key = " . $posKey . "<br>";
             }
@@ -97,25 +95,44 @@ class TaskModel{
     // CRUD-UPDATE ... MODIFICAR
     public function updateTask($arrTasks, $idToModify){
 
-        echo "<br>TaskModel::updateTask... valor de _POST['inpDescrip']=" . $_POST['inpDescrip'] . "<br>";
-        echo "<br>TaskModel::updateTask... valor de _POST['inpId']=" . $_POST['inpId'] . "<br>";
+        // echo "<br>TaskModel::updateTask... valor de _POST['inpDescrip']=" . $_POST['inpDescrip'] . "<br>";
+        // echo "<br>TaskModel::updateTask... valor de _POST['inpId']=" . $_POST['inpId'] . "<br>";
         // die;
-        echo "<br>TaskModel::updateTask... valor de idToModify=" . $idToModify . "<br>";
+        // echo "<br>TaskModel::updateTask... valor de idToModify=" . $idToModify . "<br>";
 
-        foreach ($arrTasks as $task) {
-            // echo "en el foreach... task['id_task']=" . $task['id_task'];            
+        foreach ($this->arrTasks as $key => $task) {
+
+            // echo "<br>en el foreach... task['id_task']=" . $task['id_task'] . "<br>";            
+            
             if ($task['id_task'] == $idToModify)  {
+
+                // echo "<br> Encontrado:  task['id_task']=".$task['id_task'] . ", idToModify=" . $idToModify . "<br>";
+                // die;
+
                 // if ($task['masterUsr_id'] == $_SESSION['user_id']){
                     // implementar aquí
                 // }
-                $task['description'] = $_POST['inpDescrip'];
-                $task['slaveUsr_id'] = $_POST['cmbUserSlave'];      
+                $task['description']   = $_POST['inpDescrip'];
+                $task['slaveUsr_id']   = $_POST['cmbUserSlave'];   
+                // $task['currentStatus'] = $_POST['cmbCurrentStatus'];
 
-                $result = $this->saveJson($arrTasks,$task);
-                echo "<br>result de saveJson = " . $result . "<br>";
-            }            
+                // echo "<br> POSICION ARRAY MODIFICADO:  task['description']=" . $task['description'] . ", task['slaveUsr_id']=" . $task['slaveUsr_id'] . "<br>";
+                // die;
+
+                // amb saveJson va afegint noves tasques, com és llogic, pq fa array_push... tan millor fer:
+                // tallar el json en la posició indicada, i enmig posar la que toca ?????
+                // en comptes de fer ---> array_push($arrTasks, $singleTask); 
+                // hem de fer un insert a la posicio concreta del JSON ..... 
+                // potser amb un indexOf() i amb un array_replace() del sub array dels fields  ?????
+            }   
         }
-        return true;      
+        // echo "<br>var_dump de arrTasks antes del encode = ";
+        // var_dump($arrTasks[$idToModify-1]);
+
+        // $this->arrTasks = $arrTasks;
+        $jsnTasks = json_encode($this->arrTasks, JSON_PRETTY_PRINT);                
+        $result = file_put_contents($this->_jsonFile, $jsnTasks);
+        return $result? true : false;     
     }
 
     // CAMBIOS DE STATUS... pendiente para estudiar si lo usamos o no...
@@ -124,23 +141,11 @@ class TaskModel{
         if (is_array($tasks)){
             foreach ($tasks as $task) {
                 if($task['id_task'] === $taskid){
-                $task['currentStatus'] = 'completed';
+                // $task['currentStatus'] = 'completed';
                 $task['done'] = date("Y-m-d");
                 }
             }
          $this->saveJson($task);
-        }
-    }
-
-    public function initiatedTask($taskid){
-        $tasks = $this->arrTask;
-        if (is_array($tasks)){
-            foreach ($tasks as $task) {
-                if($task['id_task'] === $taskid){
-                    $task['currentStatus'] = 'in progress';                    
-                }
-            }
-            $this->saveJson($task);
         }
     }
 
