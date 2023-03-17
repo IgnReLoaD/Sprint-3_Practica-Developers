@@ -1,7 +1,7 @@
 <?php
 //require_once ('app/models/TaskModel.php');
  require ROOT_PATH.'/app/models/TaskModel.php';
-
+ require ROOT_PATH.'/app/models/UserModel.php';
  
 class TaskController extends Controller {
 
@@ -12,7 +12,13 @@ class TaskController extends Controller {
 
     // TO PRESENT A FORM TO THE USER, TO LET HIM INPUT SOME 'TASK DATA'
     public function addAction(){
-        // echo "<br>TaskController::addAction...<br>";
+        $objUser = new UserModel([
+            'nom' => '', 
+            'cog' => '', 
+            'rol' => '', 
+            'pwd' => ''
+        ]);
+        $this->view->__set('users', $objUser->getUsers() );
     }
     
     // STORE IN BD THE INPUT FORM VALUES -----------------------------
@@ -23,10 +29,11 @@ class TaskController extends Controller {
 
                 // 1. recollim les dades de la Tasca
                 $fields = array(
-                    'description' => $_POST["description"],
+                    'created_at'   => $_POST["created_at"],
+                    'description'  => $_POST["description"],
                     'masterUsr_id' => $_POST["masterUsr_id"],
-                    'slaveUsr_id' => $_POST["slaveUsr_id"],
-                    'created_at' => $_POST["created_at"]
+                    'slaveUsr_id'  => $_POST["slaveUsr_id"],
+                    'currentStatus'=> $_POST["cmbCurrentStatus"] 
                 );
 
                 // 2. Instanciem l'objecte Tasca
@@ -49,22 +56,25 @@ class TaskController extends Controller {
     // LIST OF ALL TASKS ---------------------------------------------
     public function viewallAction(){        
         $taskObj = new TaskModel([
+            'created_at' => '',
             'description' => 'descrip',
             'masterUsr_id' => '1',
-            'slaveUsr_id' => '1'
+            'slaveUsr_id' => '1',
+            'currentStatus' => ''
         ]);
         return $taskObj->getTasks();  
     }
 
     // ELIMINAR UNA TASCA -------------------------------------------
     public function delAction(){ 
-
         if ($_SERVER['REQUEST_METHOD'] == 'GET'){
             if (isset ($_GET['id_task'])) {
                 $objTask = new TaskModel([
+                    'created_at' => '',
                     'description' => 'descrip',
                     'masterUsr_id' => '1',
-                    'slaveUsr_id' => '1'
+                    'slaveUsr_id' => '1',
+                    'currentStatus' => ''
                 ]);
                 $result = $objTask->destroy($_GET['id_task']);
                 if ($result){
@@ -72,7 +82,6 @@ class TaskController extends Controller {
                     header('Location: viewalltask');
                 }else{
                     echo "ATENCIO: no s'ha pogut eliminar!!";
-                    die;
                 }
             }
         }
@@ -81,27 +90,41 @@ class TaskController extends Controller {
 
     // EDITAR UNA TASCA --------------------------------
     public function editAction(){
-
         if ($_SERVER['REQUEST_METHOD'] == 'GET'){
             if (isset ($_GET['id_task'])) {
+                $objUser = new UserModel([
+                    'nom' => '', 
+                    'cog' => '', 
+                    'rol' => '', 
+                    'pwd' => ''
+                ]);
                 $objTask = new TaskModel([
+                    'created_at' => '',
                     'description' => 'descrip',
                     'masterUsr_id' => '1',
-                    'slaveUsr_id' => '1'
+                    'slaveUsr_id' => '1',
+                    'currentStatus' => ''
                 ]);
-                $id = $_GET['id_task'];
-
-                // si estem cridant al formulari, encara els inputs buits --> cridem la View Edit, passant la info
-                if (empty($_POST)) {
-                    $this->view->__set('data', $objTask->getTaskById($id));
-
-                // si estem retornant del formulari, els inputs ja plens --> cridem mètode Grabar i tornem a View llistat
-                } else {
-                    $objTask->updateTask($objTask->getTasks(), $id);
-                    header("Location: viewalltask");
-                }
+                $id = $_GET['id_task'];                
+                $this->view->__set('data', $objTask->getTaskById($id) );
+                $this->view->__set('users', $objUser->getUsers() );
             }
         }  
+    }
+
+    // UPDATE GRABAR TASCA EDITADA ----------------------
+    public function updateAction(){
+        if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $objTask = new TaskModel([
+                'created_at' => '',
+                'description' => 'descrip',
+                'masterUsr_id' => '1',
+                'slaveUsr_id' => '1',
+                'currentStatus' => ''
+            ]);
+            $objTask->updateTask($objTask->getTasks(), $_POST['inpId']);
+            header("Location: viewalltask");
+        }
     }
 
 

@@ -2,20 +2,9 @@
     session_start();
     if (isset($_SESSION['user_id'])) {
         // header('Location: index');
-        header('Location: listtask');
+        header('Location: viewalltask');
     }
-    // include ROOT_PATH.'/web/includes/header.php';
 ?>
-
-<!-- <head>
-  <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport"    content="width=device-width, initial-scale=1.0">
-    <meta name="author"      content="Ignasi Ortiz, Carlos Leichner, Gabriel Farrus" />
-	<meta name="description" content="IT Academy - FullStack LAMP" />
-    <title>PhP Developers</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head> -->
 
     <form id="frmLogin" action="index" method="post" >
         <section class="flex justify-center items-center h-4/5 bg-gray-300">

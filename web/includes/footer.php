@@ -5,7 +5,7 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 
     <footer>
-        <p class="font-extrabold text-white text-2xl bg-pink-500 py-6 text-center"><b>IT Academy (itinerari LAMP) - Cibernàrium de BcnActiva - 2022</b></p>
+        <p class="absolute bottom-0 w-full font-extrabold text-white text-2xl bg-pink-500 py-6 text-center"><b>IT Academy (itinerari LAMP) - Cibernàrium de BcnActiva - 2023</b></p>
     </footer>
 </body>
 </html>
