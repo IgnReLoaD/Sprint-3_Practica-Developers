@@ -9,12 +9,11 @@ class TaskModel{
 
     public $arrFields = array (
         'id_task' => '0',
+        'created_at' => '',         
         'description' => '',
-        // 'currentStatus' => 'initiated',
-        'created_at' => '', 
-        'done' => '',
         'masterUsr_id'=>'',
-        'slaveUsr_id'=>''
+        'slaveUsr_id'=>'',
+        'currentStatus' => 'To do'
     );
    
     // CONSTRUCTOR      
@@ -34,21 +33,29 @@ class TaskModel{
         // ens guardem en State la Tasca actual que ha construit
         $this->arrFields = array(
             'id_task' => $this->getMaxId(),
-            'created_at' => date("Y-m-d"),
+            'created_at'  => $arrFields['created_at'],  // date("Y-m-d"),
             'description' => $arrFields['description'],
-            'masterUsr_id' => $arrFields['masterUsr_id'],
-            'slaveUsr_id'  => $arrFields['slaveUsr_id']
-            // 'currentStatus' => $arrFields['currentStatus']
+            'masterUsr_id'=> $arrFields['masterUsr_id'],
+            'slaveUsr_id' => $arrFields['slaveUsr_id'],
+            'currentStatus' => $arrFields['currentStatus']
         );  
     }
 
-    private function getMaxId(){
+    private function getMaxId___old___failing(){
         if ($this->arrTasks > 0) { 
             $maxId = count($this->arrTasks)+1;
         }else{
             $maxId = 1;
         }
         return $maxId;       
+    }
+
+    private function getMaxId(){
+        $maxId = 0;
+        foreach ($this->arrTasks as $singleTask){
+            $singleTask['id_task'] > $maxId ? $maxId = $singleTask['id_task'] : '';          
+        }
+        return $maxId+1;
     }
 
     public function saveJson($arrTasks, array $singleTask){
@@ -102,12 +109,12 @@ class TaskModel{
                 // if ($task['masterUsr_id'] == $_SESSION['user_id']){
                     // implementar aquí para CONTROL modificar tarea soloamente si usuario logueado
                 // }
-
-                $task['description']   = $_POST['inpDescrip'];
-                $task['masterUsr_id']   = $_POST['cmbUserMaster']; 
-                $task['slaveUsr_id']   = $_POST['cmbUserSlave'];   
-                // $task['currentStatus'] = $_POST['cmbCurrentStatus'];
-                echo "<br> POSICION ARRAY MODIFICADO:  task['description']=" . $task['description'] . ", task['slaveUsr_id']=" . $task['slaveUsr_id'] . "<br>";
+                $task['created_at']   = $_POST['created_at'];
+                $task['description']  = $_POST['inpDescrip'];
+                $task['masterUsr_id'] = $_POST['cmbUserMaster']; 
+                $task['slaveUsr_id']  = $_POST['cmbUserSlave'];   
+                $task['currentStatus']= $_POST['cmbCurrentStatus'];
+                // echo "<br> POSICION ARRAY MODIFICADO:  task['description']=" . $task['description'] . ", task['slaveUsr_id']=" . $task['slaveUsr_id'] . "<br>";
 
                 $arr = [$idToModify => $task];
                 $this->destroy($idToModify);
@@ -119,19 +126,6 @@ class TaskModel{
         return $result? true : false;     
     }
 
-    // CAMBIOS DE STATUS... pendiente para estudiar si lo usamos o no...
-    public function completedTask($taskid){
-        $tasks = $this->arrTask;
-        if (is_array($tasks)){
-            foreach ($tasks as $task) {
-                if($task['id_task'] === $taskid){
-                // $task['currentStatus'] = 'completed';
-                $task['done'] = date("Y-m-d");
-                }
-            }
-         $this->saveJson($task);
-        }
-    }
 
 }
 

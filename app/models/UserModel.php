@@ -74,7 +74,7 @@ class UserModel {
         return $result? true : false;                
     }
 
-    private function getMaxId(){
+    private function getMaxId__old__failing(){
         if ($this->_arrUsers > 0) { 
             $maxId = count($this->_arrUsers)+1;
         }else{
@@ -82,6 +82,14 @@ class UserModel {
         }
         return $maxId;       
     }
+
+    private function getMaxId(){
+        $maxId = 0;
+        foreach ($this->_arrUsers as $singleUser){
+            $singleUser['id_user'] > $maxId ? $maxId = $singleUser['id_user'] : '';
+        }
+        return $maxId+1;
+    }    
 
     // implementamos aquí el DELETE a JSON (un recycle nos permite recuperarlo, todavia no Delete total)
     public function recycle($data,$status) {

@@ -2,65 +2,56 @@
     // include ROOT_PATH.'/web/includes/header.php';
     $controllerTasks = new TaskController;
     $tasks = $controllerTasks->viewallAction();
-    // var_dump($tasks);
     $controllerUsers = new UserController;
     $users = $controllerUsers->getAllUsersAction();
-    // var_dump($users);
 ?>
 
-<!-- <html>
-<head>
-  <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport"    content="width=device-width, initial-scale=1.0">
-    <meta name="author"      content="Ignasi Ortiz, Carlos Leichner, Gabriel Farrus" />
-	  <meta name="description" content="IT Academy - FullStack LAMP" />
-    <title>PhP Developers</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head> -->
 <body>
-    <label for="" class="w-screen border-0 text-center font-bold px-3 py-12 text-pink-600 text-4xl"> LIST OF TASKS </label>
-    <!-- <nav method = "POST" class="flex justify-center space-x-4">                 -->
-        <!-- <a href="listtask" class="font-bold px-3 py-12 text-slate-700 rounded-lg hover:bg-slate-100 hover:text-slate-900">Tasks</a>  -->        
-    <!-- </nav>         -->
-    <form action ="" method = "POST" class="flex justify-center items-center border-0">        
-        <div class="pt-6 bg-white container flex justify-center mx-auto border-0">
+    <label for="" class="w-screen border-0 text-center font-bold px-3 py-6 text-pink-600 text-4xl"> Llistat de tasques </label>
+    <form action ="" method="POST" class="flex justify-center items-center border-0">        
+        
+        <div class="pt-2 bg-gray-300 container flex justify-center mx-auto border-0">
             <div class="flex flex-col">
-                <div class="w-full">
-                    <div class="border-b border-gray-200 shadow">
+            <section class="pb-2 mb-4 px-8 flex items-center justify-between">
+                    <button type="submit" id="btnLogout" name="btnLogout" class="w-40 py-2 mb-2 bg-pink-600 hover:bg-pink-800 rounded text-sm font-bold text-gray-50 border-pink-600 transition duration-200">
+                        <a href="logout" class=" underline hover:no-underline no-underline border-pink-600 transition duration-200 hover:text-gray-50" > Logout</a>
+                    </button>                       
+                    <button type= "submit" id = "addtask" name = "addtask" class="w-40 py-2 mb-2 bg-pink-600 hover:bg-pink-800 rounded text-sm font-bold text-gray-50 transition duration-200" >
+                        <a href="addtask" class =" underline hover:no-underline no-underline text-white" >Crear nova</a>
+                    </button>
+                </section>
+                <div class="w-full">                    
+                    <div class="border border-gray-200 shadow-2xl rounded-2xl">
                         <table class="divide-y divide-gray-300 ">
                             <thead class="bg-gray-50">
                                 <tr>
                                     <!-- <th class="px-6 py-2 text-xs text-gray-500">
                                         ID
                                     </th> -->
-                                    <th class="px-6 py-2 text-xs text-gray-500">
-                                        Created At
-                                    </th>                                    
-                                    <th  class="px-6 py-2 text-xs text-gray-500">
-                                        Description
-                                    </th>
-                                    <th class="px-6 py-2 text-xs text-gray-500">
-                                        Master User
-                                    </th>
-                                    <th class="px-6 py-2 text-xs text-gray-500">
-                                        Slave User
-                                    </th>                                    
-                                    <!-- <th class="px-6 py-2 text-xs text-gray-500">
+                                    <th class="px-6 py-3 text-sm text-pink-800 bg-pink-200">
+                                        Creaci&oacute;
+                                    </th>         
+                                    <th class="px-6 py-2 text-sm text-pink-800 bg-pink-200">
                                         Status
+                                    </th>                                                               
+                                    <th  class="px-6 py-3 text-sm text-pink-800 bg-pink-200">
+                                        Descripci&oacute;
                                     </th>
-                                    <th  class="px-6 py-2 text-xs text-gray-500">
-                                        Finish date
-                                    </th> -->
-                                    <th class="px-6 py-2 text-xs text-gray-500">
-                                        Edit
+                                    <th class="px-6 py-3 text-sm text-pink-800 bg-pink-200">
+                                        Creador
                                     </th>
-                                    <th class="px-6 py-2 text-xs text-gray-500">
-                                        Delete
+                                    <th class="px-6 py-3 text-sm text-pink-800 bg-pink-200">
+                                        Executor
+                                    </th>                                    
+                                    <th class="px-6 py-3 text-sm text-pink-800 bg-pink-200">
+                                        Editar
+                                    </th>
+                                    <th class="px-6 py-3 text-sm text-pink-800 bg-pink-200">
+                                        Eliminar
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white divide-y divide-gray-300">
+                            <tbody class="bg-white divide-y divide-pink-300">
 
                                 <?php foreach ($tasks as $key => $task) :?>
 
@@ -68,15 +59,27 @@
                                     <!-- <td id = 'id_task' class="px-6 py-4 text-sm text-gray-500">
                                         <?php echo $task['id_task']?>
                                     </td> -->
-                                    <td id = 'created_at' class="px-6 py-4 text-sm text-gray-500">
+                                    <td id='created_at' class="px-6 py-4 text-sm text-gray-500">
                                         <?php echo $task['created_at']?>
+                                    </td>
+                                    <td id='currentStatus' class="px-6 py-4">
+                                        <div class="text-sm text-gray-900">
+                                            <?php 
+                                                switch ($task['currentStatus']){
+                                                    case 'Completed': echo '<span class="text-green-600 font-bold">'.$task['currentStatus'].'</span>';break;
+                                                    case 'To do':     echo '<span class="text-yellow-600 font-bold">'.$task['currentStatus'].'</span>';break;
+                                                    case 'In Progress': echo '<span class="text-blue-600 font-bold">'.$task['currentStatus'].'</span>';break;
+                                                    case 'In Problems': echo '<span class="text-red-600 font-bold">'.$task['currentStatus'].'</span>';break;
+                                                }
+                                            ?>
+                                        </div>
                                     </td>                                    
-                                    <td id = 'description' class="px-6 py-4">
+                                    <td id='description' class="px-6 py-4">
                                         <div class="text-sm text-gray-900">
                                         <?php echo $task['description']?>
                                         </div>
-                                    </td>
-                                    <td id = 'masterUsr_id' class="px-6 py-4 text-sm text-gray-500">
+                                    </td>                                    
+                                    <td id='masterUsr_id' class="px-6 py-4 text-sm text-gray-500">
                                         <!-- <?php echo $task['masterUsr_id']?> -->
                                         <?php foreach ($users as $key => $user) :
                                                 if ($user['id_user'] == $task['masterUsr_id'] ) {
@@ -85,7 +88,7 @@
                                             endforeach; 
                                         ?>
                                     </td>
-                                    <td id = 'slaveUsr_id ' class="px-6 py-4 text-sm text-gray-500">
+                                    <td id='slaveUsr_id ' class="px-6 py-4 text-sm text-gray-500">
                                         <!-- <?php echo $task['slaveUsr_id']?> -->
                                         <?php foreach ($users as $key => $user) :
                                             if ($user['id_user'] == $task['slaveUsr_id'] ) {
@@ -94,7 +97,6 @@
                                         endforeach;                                         
                                         ?>
                                     </td>                                    
-
                                     <td class="px-6 py-4">
                                         <a href="edittask?id_task=<?php echo $task['id_task']?>">
                                             <svg  class="w-6 h-6 text-blue-400" fill="none"
@@ -120,17 +122,6 @@
                             </tbody>
                         </table>
                     </div>
-                    <madre method = "POST" class="p-20 m-20 px-20 flex items-center justify-between">
-                        <button type="submit" id="btnLogout" name="btnLogout" class="w-40 py-4 bg-gray-300 hover:bg-gray-400 rounded text-sm font-bold text-pink-600 border-pink-600 transition duration-200">
-                            <a href="logout" class=" underline hover:no-underline no-underline text-pink-600 border-pink-600 transition duration-200 hover:text-pink-600" >Logout</a>
-                        </button>                       
-                        <button type= "submit" id = "addtask" name = "addtask" class="w-40 py-4 bg-pink-600 hover:bg-pink-800 rounded text-sm font-bold text-gray-50 transition duration-200" >
-                            <a href="addtask" class =" underline hover:no-underline no-underline text-white" >Create Task </a>
-                        </button>
-                        <!-- <button type = "submit" id= "cancel" name ="cancel"  class="w-40 py-4 bg-gray-300 hover:bg-gray-400 rounded text-sm font-bold text-pink-600 border-pink-600 transition duration-200">
-                            <a href="listtask" class =" underline hover:no-underline no-underline text-pink-600 border-pink-600 transition duration-200 hover:text-pink-600" >Back</a>
-                        </button> -->
-                    </madre>
                 </div>
             </div>
         </div>    

@@ -52,5 +52,14 @@
         "pwd": "1234",
         "rol": "manager",
         "deleted": "0"
+    },
+    {
+        "id_user": 7,
+        "createdAt": "2023-03-16 23:04:54",
+        "name": "SysAdmin",
+        "surn": "",
+        "pwd": "1234",
+        "rol": "admin",
+        "deleted": "0"
     }
 ]

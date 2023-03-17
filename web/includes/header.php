@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport"    content="width=device-width, initial-scale=1.0">
-    <meta name="author"      content="Ignasi Ortiz, Carlos Leichner, Gabriel Farrus" />
+    <meta name="author"      content="Ignasi Ortiz, and I want to thank Carlos and Gabriel for his cooperation"/>
 	<meta name="description" content="IT Academy - FullStack LAMP" />
     <title>PhP Developers</title>
     <link rel="shortcut icon" href="./images/favicon.ico">
@@ -20,7 +20,7 @@
 </head>
 
 <!-- <body class="bg-blue-200"> -->
-<body class="bg-white divide-y divide-gray-300">
+<body class="bg-gray-300 divide-y divide-gray-300">
     <nav class="navbar navbar-dark bg-pink-500 flex">
         <div class="container justify-start">
             <div class="d-inline flex-row">

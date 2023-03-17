@@ -1,72 +1,42 @@
 [
     {
-        "id_task": 1,
-        "created_at": "2023-03-16",
-        "description": "Task de prueba",
+        "id_task": 18,
+        "created_at": "2023-3-16",
+        "description": "Tasca prova maxId",
         "masterUsr_id": "1",
-        "slaveUsr_id": "2"
+        "slaveUsr_id": "2",
+        "currentStatus": "Completed"
     },
     {
-        "id_task": 2,
-        "created_at": "2023-03-16",
-        "description": "Task de prueba22",
+        "id_task": 20,
+        "created_at": "2023-3-16",
+        "description": "tasca testing",
         "masterUsr_id": "1",
-        "slaveUsr_id": "3"
+        "slaveUsr_id": "2",
+        "currentStatus": "To do"
     },
     {
-        "id_task": 4,
-        "created_at": "2023-03-16",
-        "description": "Task de prueba44",
+        "id_task": 21,
+        "created_at": "2023-3-14",
+        "description": "test de tasca editada",
+        "masterUsr_id": "3",
+        "slaveUsr_id": "4",
+        "currentStatus": "In Progress"
+    },
+    {
+        "id_task": 23,
+        "created_at": "2023-3-17",
+        "description": "nova tasca dia 17",
         "masterUsr_id": "1",
-        "slaveUsr_id": "4"
+        "slaveUsr_id": "4",
+        "currentStatus": "In Progress"
     },
     {
-        "id_task": 3,
-        "created_at": "2023-03-16",
-        "description": "Task de prueba33",
+        "id_task": 19,
+        "created_at": "2023-3-15",
+        "description": "tasca 2 testing problems",
         "masterUsr_id": "1",
-        "slaveUsr_id": "2"
-    },
-    {
-        "id_task": 7,
-        "created_at": "2023-03-16",
-        "description": "Task de prueba User performer",
-        "masterUsr_id": "1",
-        "slaveUsr_id": "3"
-    },
-    {
-        "id_task": 8,
-        "created_at": "2023-03-16",
-        "description": "Task de prueba User Gabi",
-        "masterUsr_id": "2",
-        "slaveUsr_id": "3"
-    },
-    {
-        "id_task": 6,
-        "created_at": "2023-03-16",
-        "description": "Task de prueba Joel manda a Gabi",
-        "masterUsr_id": "4",
-        "slaveUsr_id": "5"
-    },
-    {
-        "id_task": 9,
-        "created_at": "2023-03-16",
-        "description": "Task de prueba con Sonia",
-        "masterUsr_id": "2",
-        "slaveUsr_id": "5"
-    },
-    {
-        "id_task": 5,
-        "created_at": "2023-03-16",
-        "description": "Task de prueba7777777",
-        "masterUsr_id": "1",
-        "slaveUsr_id": "4"
-    },
-    {
-        "id_task": 10,
-        "created_at": "2023-03-16",
-        "description": "Task de prueba999",
-        "masterUsr_id": "2",
-        "slaveUsr_id": "5"
+        "slaveUsr_id": "3",
+        "currentStatus": "In Problems"
     }
 ]

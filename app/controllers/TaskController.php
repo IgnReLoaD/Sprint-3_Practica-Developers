@@ -29,11 +29,11 @@ class TaskController extends Controller {
 
                 // 1. recollim les dades de la Tasca
                 $fields = array(
-                    'description' => $_POST["description"],
+                    'created_at'   => $_POST["created_at"],
+                    'description'  => $_POST["description"],
                     'masterUsr_id' => $_POST["masterUsr_id"],
-                    'slaveUsr_id' => $_POST["slaveUsr_id"],
-                    'created_at' => $_POST["created_at"]
-                    // 'currentStatus' => $_POST["cmbCurrentStatus"]
+                    'slaveUsr_id'  => $_POST["slaveUsr_id"],
+                    'currentStatus'=> $_POST["cmbCurrentStatus"] 
                 );
 
                 // 2. Instanciem l'objecte Tasca
@@ -56,9 +56,11 @@ class TaskController extends Controller {
     // LIST OF ALL TASKS ---------------------------------------------
     public function viewallAction(){        
         $taskObj = new TaskModel([
+            'created_at' => '',
             'description' => 'descrip',
             'masterUsr_id' => '1',
-            'slaveUsr_id' => '1'
+            'slaveUsr_id' => '1',
+            'currentStatus' => ''
         ]);
         return $taskObj->getTasks();  
     }
@@ -68,9 +70,11 @@ class TaskController extends Controller {
         if ($_SERVER['REQUEST_METHOD'] == 'GET'){
             if (isset ($_GET['id_task'])) {
                 $objTask = new TaskModel([
+                    'created_at' => '',
                     'description' => 'descrip',
                     'masterUsr_id' => '1',
-                    'slaveUsr_id' => '1'
+                    'slaveUsr_id' => '1',
+                    'currentStatus' => ''
                 ]);
                 $result = $objTask->destroy($_GET['id_task']);
                 if ($result){
@@ -95,9 +99,11 @@ class TaskController extends Controller {
                     'pwd' => ''
                 ]);
                 $objTask = new TaskModel([
+                    'created_at' => '',
                     'description' => 'descrip',
                     'masterUsr_id' => '1',
-                    'slaveUsr_id' => '1'
+                    'slaveUsr_id' => '1',
+                    'currentStatus' => ''
                 ]);
                 $id = $_GET['id_task'];                
                 $this->view->__set('data', $objTask->getTaskById($id) );
@@ -110,9 +116,11 @@ class TaskController extends Controller {
     public function updateAction(){
         if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             $objTask = new TaskModel([
+                'created_at' => '',
                 'description' => 'descrip',
                 'masterUsr_id' => '1',
-                'slaveUsr_id' => '1'
+                'slaveUsr_id' => '1',
+                'currentStatus' => ''
             ]);
             $objTask->updateTask($objTask->getTasks(), $_POST['inpId']);
             header("Location: viewalltask");
